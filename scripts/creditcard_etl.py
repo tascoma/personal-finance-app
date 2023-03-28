@@ -81,6 +81,7 @@ creditcard_df = pd.concat(
     [creditcard_df, credit_entries, debit_entries]).reset_index(drop=True)
 
 creditcard_df['Month_Num'] = creditcard_df['Date'].dt.month
+creditcard_df = creditcard_df.sort_values(by='Date').reset_index(drop=True)
 creditcard_df['Transaction_ID'] = 'cc-' + creditcard_df['Month_Num'].astype(
     "str") + '-' + (creditcard_df.index + 1).astype("str")
 
