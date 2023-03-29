@@ -1,6 +1,11 @@
 import os
+import add_package
 import configparser
 import pandas as pd
+import numpy as np
+from financialstatements.utils import missing_gl_check
+from financialstatements.utils import missing_mcc
+from financialstatements.utils import debit_credit_check
 
 cwd = os.path.dirname(__file__)
 
@@ -45,10 +50,18 @@ creditcard_df[['Memo', 'MCC', 'Blank']
 creditcard_df['MCC'] = creditcard_df['MCC'].str[-4:]
 creditcard_df['MCC'] = creditcard_df['MCC'].astype('int')
 
+# Joining coa mcc link table
 creditcard_df = pd.merge(creditcard_df,
                          coa_mcc_df,
                          how='left',
                          on='MCC')
+
+# missing gl check
+if missing_gl_check(creditcard_df) != 0:
+    print("GL_Codes are missing, need to update the coa and mcc link table")
+    missing_mcc(creditcard_df)
+else:
+    print("No GL_Codes missing")
 
 creditcard_df['Description'] = creditcard_df['MCC_Description'] + \
     ': ' + creditcard_df['Name']
@@ -56,11 +69,18 @@ creditcard_df = creditcard_df[['Date', 'GL_Code',
                                'Account', 'Description', 'DEBIT', 'CREDIT']]
 creditcard_df = creditcard_df.round(2)
 
+# creating sort columns
+creditcard_df = creditcard_df.sort_values(by='Date').reset_index(drop=True)
+creditcard_df['Order_Col'] = creditcard_df.index + 1
+creditcard_df['Sub_Order_Col'] = np.where(
+    creditcard_df['DEBIT'].isnull(), 2, 1)
+
 # Creating credit entries
 credit_entries = creditcard_df[creditcard_df['CREDIT'].isnull()].reset_index(
     drop=True).copy()
 credit_entries['GL_Code'] = 200101
 credit_entries['Account'] = 'EdwardJones MasterCard'
+credit_entries['Sub_Order_Col'] = 2
 credit_entries = credit_entries.rename(
     columns={'DEBIT': 'CREDIT', 'CREDIT': 'DEBIT'})
 credit_entries = credit_entries[[
@@ -71,6 +91,7 @@ debit_entries = creditcard_df[creditcard_df['DEBIT'].isnull()].reset_index(
     drop=True).copy()
 debit_entries['GL_Code'] = 200101
 debit_entries['Account'] = 'EdwardJones MasterCard'
+debit_entries['Sub_Order_Col'] = 1
 debit_entries = debit_entries.rename(
     columns={'DEBIT': 'CREDIT', 'CREDIT': 'DEBIT'})
 debit_entries = debit_entries[['Date', 'GL_Code',
@@ -80,8 +101,16 @@ debit_entries = debit_entries[['Date', 'GL_Code',
 creditcard_df = pd.concat(
     [creditcard_df, credit_entries, debit_entries]).reset_index(drop=True)
 
+creditcard_df = creditcard_df.sort_values(
+    by=['Order_Col', 'Sub_Order_Col']).reset_index(drop=True)
+
+# debits = credits check
+if debit_credit_check(creditcard_df) == True:
+    print("Debits equal credits. Proceed to next phase")
+else:
+    print("Something went wrong")
+
 creditcard_df['Month_Num'] = creditcard_df['Date'].dt.month
-creditcard_df = creditcard_df.sort_values(by='Date').reset_index(drop=True)
 creditcard_df['Transaction_ID'] = 'cc-' + creditcard_df['Month_Num'].astype(
     "str") + '-' + (creditcard_df.index + 1).astype("str")
 
