@@ -83,8 +83,8 @@ credit_entries['Account'] = 'EdwardJones MasterCard'
 credit_entries['Sub_Order_Col'] = 2
 credit_entries = credit_entries.rename(
     columns={'DEBIT': 'CREDIT', 'CREDIT': 'DEBIT'})
-credit_entries = credit_entries[[
-    'Date', 'GL_Code', 'Account', 'Description', 'DEBIT', 'CREDIT']]
+credit_entries = credit_entries[['Date', 'GL_Code', 'Account',
+                                 'Description', 'DEBIT', 'CREDIT', 'Order_Col', 'Sub_Order_Col']]
 
 # Creating debit entries
 debit_entries = creditcard_df[creditcard_df['DEBIT'].isnull()].reset_index(
@@ -94,8 +94,8 @@ debit_entries['Account'] = 'EdwardJones MasterCard'
 debit_entries['Sub_Order_Col'] = 1
 debit_entries = debit_entries.rename(
     columns={'DEBIT': 'CREDIT', 'CREDIT': 'DEBIT'})
-debit_entries = debit_entries[['Date', 'GL_Code',
-                               'Account', 'Description', 'DEBIT', 'CREDIT']]
+debit_entries = debit_entries[['Date', 'GL_Code', 'Account',
+                               'Description', 'DEBIT', 'CREDIT', 'Order_Col', 'Sub_Order_Col']]
 
 # Appending debit and credit entries
 creditcard_df = pd.concat(
