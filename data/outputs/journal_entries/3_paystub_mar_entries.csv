@@ -1,0 +1,49 @@
+Transaction_ID,Date,GL_Code,Account,Description,DEBIT,CREDIT
+ps-3-57,2023-03-02,100101.0,Free Checking Bank OZK,Cash from paystub,1711.2199999999998,
+ps-3-58,2023-03-02,100202.0,Associate Stock Purchase Plan - Computer Share,STOCK PURCH,70.00,
+ps-3-59,2023-03-02,100202.0,Associate Stock Purchase Plan - Computer Share,CO STK CONT,10.50,
+ps-3-60,2023-03-02,100305.0,Walmart Roth 401k - Merrill ,ROTH 401K,274.62,
+ps-3-61,2023-03-02,100304.0,Health Savings Account Investment,HSA CONTR *,50.00,
+ps-3-62,2023-03-02,500201.0,Federal Income Tax,FEDERAL TAX,287.26,
+ps-3-63,2023-03-02,500202.0,Social Security Tax,SOCIAL SECURITY,164.85,
+ps-3-64,2023-03-02,500203.0,Medicare Tax,MEDICARE,38.55,
+ps-3-65,2023-03-02,500204.0,State Income Tax,ARKANSAS,101.80,
+ps-3-66,2023-03-02,500101.0,Medical Insurance,INS MED U *,36.80,
+ps-3-67,2023-03-02,500102.0,Dental Insurance,INS DEN U *,8.30,
+ps-3-68,2023-03-02,500103.0,Vision Insurance,INS VIS *,2.76,
+ps-3-69,2023-03-02,400101.0,Regular Earnings - Walmart Salary,REGULAR,,"2,746.16"
+ps-3-70,2023-03-02,400103.0,Walmart Stock Match,CO STK,,10.50
+ps-3-71,2023-03-16,100101.0,Free Checking Bank OZK,Cash from paystub,7152.43,
+ps-3-72,2023-03-16,100202.0,Associate Stock Purchase Plan - Computer Share,STOCK PURCH,70.00,
+ps-3-73,2023-03-16,100202.0,Associate Stock Purchase Plan - Computer Share,CO STK CONT,10.50,
+ps-3-74,2023-03-16,100305.0,Walmart Roth 401k - Merrill ,ROTH 401K,"1,255.90",
+ps-3-75,2023-03-16,100304.0,Health Savings Account Investment,HSA CONTR *,50.00,
+ps-3-76,2023-03-16,500201.0,Federal Income Tax,FEDERAL TAX,"2,446.08",
+ps-3-77,2023-03-16,500202.0,Social Security Tax,SOCIAL SECURITY,773.24,
+ps-3-78,2023-03-16,500203.0,Medicare Tax,MEDICARE,180.84,
+ps-3-79,2023-03-16,500204.0,State Income Tax,ARKANSAS,582.66,
+ps-3-80,2023-03-16,500101.0,Medical Insurance,INS MED U *,36.80,
+ps-3-81,2023-03-16,500102.0,Dental Insurance,INS DEN U *,8.30,
+ps-3-82,2023-03-16,500103.0,Vision Insurance,INS VIS *,2.76,
+ps-3-83,2023-03-16,400101.0,Regular Earnings - Walmart Salary,REGULAR,,"2,746.16"
+ps-3-84,2023-03-16,400103.0,Walmart Stock Match,CO STK,,10.50
+ps-3-85,2023-03-16,400102.0,Bonus,MGMT,,"9,812.85"
+ps-3-86,2023-03-30,100101.0,Free Checking Bank OZK,Cash from paystub,1841.9399999999998,
+ps-3-87,2023-03-30,100202.0,Associate Stock Purchase Plan - Computer Share,STOCK PURCH,70.00,
+ps-3-88,2023-03-30,100202.0,Associate Stock Purchase Plan - Computer Share,CO STK CONT,7.50,
+ps-3-89,2023-03-30,100305.0,Walmart Roth 401k - Merrill ,ROTH 401K,299.62,
+ps-3-90,2023-03-30,100304.0,Health Savings Account Investment,HSA CONTR *,50.00,
+ps-3-91,2023-03-30,100302.0,Walmart RSU Grant - Fidelity,RS/RSU,0.00,
+ps-3-92,2023-03-30,500201.0,Federal Income Tax,FEDERAL TAX,341.60,
+ps-3-93,2023-03-30,500202.0,Social Security Tax,SOCIAL SECURITY,180.16,
+ps-3-94,2023-03-30,500203.0,Medicare Tax,MEDICARE,42.13,
+ps-3-95,2023-03-30,500204.0,State Income Tax,ARKANSAS,113.85,
+ps-3-96,2023-03-30,500101.0,Medical Insurance,INS MED U *,36.80,
+ps-3-97,2023-03-30,500102.0,Dental Insurance,INS DEN U *,8.30,
+ps-3-98,2023-03-30,500103.0,Vision Insurance,INS VIS *,2.76,
+ps-3-99,2023-03-30,500104.0,Walton Life Fitness Center,HEALTH CLUB,9.00,
+ps-3-100,2023-03-30,400101.0,Regular Earnings - Walmart Salary,REGULAR,,"2,746.16"
+ps-3-101,2023-03-30,400103.0,Walmart Stock Match,CO STK,,7.50
+ps-3-102,2023-03-30,400102.0,Bonus,MGMT,,0.00
+ps-3-103,2023-03-30,400104.0,Making A Difference Reward,MTD AWARD,,250.00
+ps-3-104,2023-03-30,,,EQUITY P/O NET,,
