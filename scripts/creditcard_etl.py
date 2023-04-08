@@ -89,18 +89,17 @@ if missing_gl_check(df) != 0:
     missing_mcc(df)
 else:
     print("No GL_Codes missing")
+    df = processing_df(df)
+    credit_entries_df = creating_credit_entries(df)
+    debit_entries_df = creating_debit_entries(df)
+    df = pd.concat([df, credit_entries_df, debit_entries_df]
+                   ).reset_index(drop=True)
+    df = df.sort_values(by=['Order_Col', 'Sub_Order_Col']
+                        ).reset_index(drop=True)
 
-df = processing_df(df)
-credit_entries_df = creating_credit_entries(df)
-debit_entries_df = creating_debit_entries(df)
-df = pd.concat([df, credit_entries_df, debit_entries_df]
-               ).reset_index(drop=True)
-df = df.sort_values(by=['Order_Col', 'Sub_Order_Col']).reset_index(drop=True)
-
-if debit_credit_check(df) == True:
-    print("Debits equal credits. Proceed to next phase")
-else:
-    print("Something went wrong")
-
-type = 'creditcard'
-creating_output(df, month_df, type, config, cwd)
+    if debit_credit_check(df) == True:
+        print("Debits equal credits.")
+        type = 'creditcard'
+        creating_output(df, month_df, type, config, cwd)
+    else:
+        print("Something went wrong")
