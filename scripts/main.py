@@ -1,6 +1,5 @@
 import os
 import configparser
-import scripts
 from paystub_etl import paystub_etl
 from creditcard_etl import creditcard_etl
 
