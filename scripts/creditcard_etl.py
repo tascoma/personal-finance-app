@@ -1,28 +1,8 @@
-import os
-import add_package
-import configparser
 import pandas as pd
 import numpy as np
-from financialstatements.utils import creating_input_paths
-from financialstatements.utils import missing_gl_check
-from financialstatements.utils import missing_mcc
-from financialstatements.utils import debit_credit_check
-from financialstatements.utils import creating_output
-
-cwd = os.path.dirname(__file__)
-
-# Initializing Configuration
-config = configparser.ConfigParser()
-config_path = os.path.join(cwd, "../docs/config.ini")
-config.read(config_path)
-
-
-def creating_df(paths):
-    dfs = []
-    for path in paths:
-        df = pd.read_csv(path)
-        dfs.append(df)
-    return pd.concat(dfs).reset_index(drop=True)
+import os
+import add_package
+import financialstatements
 
 
 def joining_gl_codes(df, coa_mcc_df):
@@ -69,37 +49,39 @@ def creating_debit_entries(df):
     return df[['Date', 'GL_Code', 'Account', 'Description', 'DEBIT', 'CREDIT', 'Order_Col', 'Sub_Order_Col']]
 
 
-# Reading data
-CREDITCARD_DIRECTORY = os.path.join(cwd, config.get(
-    "data_inputs_directory", "CREDITCARD_DIRECTORY"))
-paths = creating_input_paths(CREDITCARD_DIRECTORY)
-df = creating_df(paths)
+def creditcard_etl(cwd, config):
+    # Reading data
+    CREDITCARD_DIRECTORY = os.path.join(cwd, config.get(
+        "data_inputs_directory", "CREDITCARD_DIRECTORY"))
+    paths = financialstatements.creating_input_paths(CREDITCARD_DIRECTORY)
+    df = financialstatements.creating_df(paths)
 
-# Reading tables
-COA_DATA = os.path.join(cwd, config.get('table_files', 'COA_DATA'))
-MONTH_DATA = os.path.join(cwd, config.get('table_files', 'MONTH_DATA'))
-coa_mcc_df = pd.read_excel(COA_DATA, sheet_name='coa_mcc_link_table')
-month_df = pd.read_excel(MONTH_DATA)
+    # Reading tables
+    COA_DATA = os.path.join(cwd, config.get('table_files', 'COA_DATA'))
+    MONTH_DATA = os.path.join(cwd, config.get('table_files', 'MONTH_DATA'))
+    coa_mcc_df = pd.read_excel(COA_DATA, sheet_name='coa_mcc_link_table')
+    month_df = pd.read_excel(MONTH_DATA)
 
-# ETL
-df = joining_gl_codes(df, coa_mcc_df)
+    # ETL
+    df = joining_gl_codes(df, coa_mcc_df)
 
-if missing_gl_check(df) != 0:
-    print("GL_Codes are missing, need to update the coa and mcc link table")
-    missing_mcc(df)
-else:
-    print("No GL_Codes missing")
-    df = processing_df(df)
-    credit_entries_df = creating_credit_entries(df)
-    debit_entries_df = creating_debit_entries(df)
-    df = pd.concat([df, credit_entries_df, debit_entries_df]
-                   ).reset_index(drop=True)
-    df = df.sort_values(by=['Order_Col', 'Sub_Order_Col']
-                        ).reset_index(drop=True)
-
-    if debit_credit_check(df) == True:
-        print("Debits equal credits.")
-        type = 'creditcard'
-        creating_output(df, month_df, type, config, cwd)
+    if financialstatements.missing_gl_check(df) != 0:
+        print("GL_Codes are missing, need to update the coa and mcc link table")
+        financialstatements.missing_mcc(df)
     else:
-        print("Something went wrong")
+        print("No GL_Codes missing")
+        df = processing_df(df)
+        credit_entries_df = creating_credit_entries(df)
+        debit_entries_df = creating_debit_entries(df)
+        df = pd.concat([df, credit_entries_df, debit_entries_df]
+                       ).reset_index(drop=True)
+        df = df.sort_values(
+            by=['Order_Col', 'Sub_Order_Col']).reset_index(drop=True)
+
+        if financialstatements.debit_credit_check(df) == True:
+            print("Debits equal credits.")
+            type = 'creditcard'
+            financialstatements.creating_output(
+                df, month_df, type, config, cwd)
+        else:
+            print("Something went wrong")

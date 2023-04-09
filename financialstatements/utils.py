@@ -11,6 +11,14 @@ def creating_input_paths(directory):
     return paths
 
 
+def creating_df(paths):
+    dfs = []
+    for path in paths:
+        df = pd.read_csv(path)
+        dfs.append(df)
+    return pd.concat(dfs).reset_index(drop=True)
+
+
 def missing_gl_check(df):
     null_count = df['GL_Code'].isnull().sum()
     return null_count

@@ -1,19 +1,9 @@
-import os
-import add_package
-import configparser
 import pandas as pd
 import numpy as np
 import tabula
-from financialstatements.utils import creating_input_paths
-from financialstatements.utils import debit_credit_check
-from financialstatements.utils import creating_output
-
-cwd = os.path.dirname(__file__)
-
-# Initializing Configuration
-config = configparser.ConfigParser()
-config_path = os.path.join(cwd, "../docs/config.ini")
-config.read(config_path)
+import os
+import add_package
+import financialstatements
 
 
 def creating_df(paths):
@@ -82,28 +72,29 @@ def creating_cash_entries(df):
     return pd.concat([df, df_grouped]).reset_index(drop=True)
 
 
-# Reading data
-PAYSTUB_DIRECTORY = os.path.join(cwd, config.get(
-    "data_inputs_directory", "PAYSTUB_DIRECTORY"))
-paths = creating_input_paths(PAYSTUB_DIRECTORY)
-df = creating_df(paths)
+def paystub_etl(cwd, config):
+    # Reading data
+    PAYSTUB_DIRECTORY = os.path.join(cwd, config.get(
+        "data_inputs_directory", "PAYSTUB_DIRECTORY"))
+    paths = financialstatements.creating_input_paths(PAYSTUB_DIRECTORY)
+    df = creating_df(paths)
 
-# Reading tables
-COA_DATA = os.path.join(cwd, config.get('table_files', 'COA_DATA'))
-MONTH_DATA = os.path.join(cwd, config.get('table_files', 'MONTH_DATA'))
-coa_purch_df = pd.read_excel(COA_DATA, sheet_name='coa_paystub_link_table')
-month_df = pd.read_excel(MONTH_DATA)
+    # Reading tables
+    COA_DATA = os.path.join(cwd, config.get('table_files', 'COA_DATA'))
+    MONTH_DATA = os.path.join(cwd, config.get('table_files', 'MONTH_DATA'))
+    coa_purch_df = pd.read_excel(COA_DATA, sheet_name='coa_paystub_link_table')
+    month_df = pd.read_excel(MONTH_DATA)
 
-# ETL
-deductions_df = find_deductions(df)
-earnings_df = find_earnings(df)
-df = processing_df(deductions_df, earnings_df, coa_purch_df)
-df = creating_cash_entries(df)
-df = df.sort_values(by=['Date', 'Order_Col']).reset_index(drop=True)
+    # ETL
+    deductions_df = find_deductions(df)
+    earnings_df = find_earnings(df)
+    df = processing_df(deductions_df, earnings_df, coa_purch_df)
+    df = creating_cash_entries(df)
+    df = df.sort_values(by=['Date', 'Order_Col']).reset_index(drop=True)
 
-if debit_credit_check(df) == True:
-    print("Debits equal credits.")
-    type = 'paystub'
-    creating_output(df, month_df, type, config, cwd)
-else:
-    print("Something went wrong")
+    if financialstatements.debit_credit_check(df) == True:
+        print("Debits equal credits.")
+        type = 'paystub'
+        financialstatements.creating_output(df, month_df, type, config, cwd)
+    else:
+        print("Something went wrong")
