@@ -2,6 +2,7 @@ import os
 import configparser
 from paystub_etl import paystub_etl
 from creditcard_etl import creditcard_etl
+from bank_etl import bank_etl
 
 
 cwd = os.path.dirname(__file__)
@@ -15,6 +16,7 @@ config.read(config_path)
 def main():
     paystub_etl(cwd, config)
     creditcard_etl(cwd, config)
+    bank_etl(cwd, config)
 
 
 if __name__ == "__main__":
