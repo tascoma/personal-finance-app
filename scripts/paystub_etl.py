@@ -97,4 +97,5 @@ def paystub_etl(cwd, config):
         type = 'paystub'
         financialstatements.creating_output(df, month_df, type, config, cwd)
     else:
-        print("Something went wrong")
+        print("Debits do not equal credits")
+        print(df)

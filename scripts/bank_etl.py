@@ -21,6 +21,12 @@ def processing_df(df):
     return df[['Date', 'GL_Code', 'Account', 'Description', 'DEBIT', 'CREDIT', 'Order_Col', 'Sub_Order_Col']]
 
 
+def removing_duplicates(df):
+    keywords = ['WAL-MART ASSOCS. PAYROLL', 'CARDMEMBER SERV WEB PYMT']
+    mask = df['Description'].str.contains('|'.join(keywords))
+    return df[~mask]
+
+
 def creating_credit_entries(df):
     df = df[df['CREDIT'].isnull()].reset_index(drop=True).copy()
     df['GL_Code'] = 100101
@@ -52,6 +58,7 @@ def bank_etl(cwd, config):
 
     # ETL
     df = processing_df(df)
+    df = removing_duplicates(df)
     credit_entries_df = creating_credit_entries(df)
     debit_entries_df = creating_debit_entries(df)
     df = pd.concat([df, credit_entries_df, debit_entries_df])
@@ -63,4 +70,5 @@ def bank_etl(cwd, config):
         type = 'bank'
         financialstatements.creating_output(df, month_df, type, config, cwd)
     else:
-        print("Something went wrong")
+        print("Debits do not equal credits")
+        print(df)

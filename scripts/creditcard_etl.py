@@ -84,4 +84,5 @@ def creditcard_etl(cwd, config):
             financialstatements.creating_output(
                 df, month_df, type, config, cwd)
         else:
-            print("Something went wrong")
+            print("Debits do not equal credits")
+            print(df)
