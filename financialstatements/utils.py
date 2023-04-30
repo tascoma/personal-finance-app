@@ -35,7 +35,7 @@ def debit_credit_check(df):
     return debit_total == credit_total
 
 
-def creating_output(df, type, config, cwd):
+def creating_journal_entry_outputs(df, type, config, cwd):
     df['Month_Num'] = df['Date'].dt.month
     df['Transaction_ID'] = type + '-' + \
         df['Month_Num'].astype("str") + '-' + (df.index + 1).astype("str")

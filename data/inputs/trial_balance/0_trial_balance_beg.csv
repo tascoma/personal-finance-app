@@ -1,0 +1,75 @@
+GL_Code,Account,Beg_Balance,DEBIT,CREDIT,End_Balance
+100101,Free Checking Bank OZK,0,16172.91,0,16172.91
+100102,Venmo Balance,0,0,0,0
+100103,Paypal Balance,0,0,0,0
+100201,Investment Single Account - EdwardJones,0,18355.2,0,18355.2
+100202,Associate Stock Purchase Plan - Computer Share,0,2728.89,0,2728.89
+100203,Walmart RSU Vested - Fidelity,0,562.47,0,562.47
+100204,Cryptocurrency,0,546.96,0,546.96
+100301,Roth IRA - EdwardJones,0,6415.32,0,6415.32
+100302,Walmart RSU Grant - Fidelity,0,3828.33,0,3828.33
+100303,Health Savings Account Cash,0,1000.04,0,1000.04
+100304,Health Savings Account Investment,0,1634.47,0,1634.47
+100305,Walmart Roth 401k - Merrill ,0,9871.78,0,9871.78
+100401,"Computers, Consoles, Electronics",0,0,0,0
+100402,Hobbies - Trading Cards,0,0,0,0
+100403,Hobbies - Video Games,0,0,0,0
+100404,Fire Arms,0,0,0,0
+100405,Jewelry,0,0,0,0
+200101,EdwardJones MasterCard,0,0,0,0
+300101,Tony's Equity,0,0,61116.37,61116.37
+300102,Retained Earnings,0,0,0,0
+400101,Regular Earnings - Walmart Salary,0,0,0,0
+400102,Bonus,0,0,0,0
+400103,Walmart Stock Match,0,0,0,0
+400104,Making A Difference Reward,0,0,0,0
+500101,Medical Insurance,0,0,0,0
+500102,Dental Insurance,0,0,0,0
+500103,Vision Insurance,0,0,0,0
+500104,Walton Life Fitness Center,0,0,0,0
+500201,Federal Income Tax,0,0,0,0
+500202,Social Security Tax,0,0,0,0
+500203,Medicare Tax,0,0,0,0
+500204,State Income Tax,0,0,0,0
+500301,Donation,0,0,0,0
+600101,Rent Expense,0,0,0,0
+600201,Gas - AUTOMATED FUEL DISPENSERS,0,0,0,0
+600202,Gas - GAS/SERVICE STATIONS WITH/WITHOUT ANCILLARY SERVICES,0,0,0,0
+600301,Utilities,0,0,0,0
+600401,Internet,0,0,0,0
+600501,Food - Fast Food Restaurants,0,0,0,0
+600502,Food - Restaurants,0,0,0,0
+600503,Grocery,0,0,0,0
+600601,"Hobbies - hobby, toy or games stores",0,0,0,0
+600602,Hobbies - Jiu Jitsu,0,0,0,0
+600603,Hobbies - apparel and accessory shops -- miscellaneous,0,0,0,0
+600604,Entertainment - digital goods: games,0,0,0,0
+600605,Entertainment - alcoholic beverages drinking places - bars nightclubs etc,0,0,0,0
+600606,Entertainment - video amusement game supplies,0,0,0,0
+600607,Entertainment - motion picture theaters,0,0,0,0
+600701,Clothing,0,0,0,0
+600801,Car Expense - Auto Tire Store,0,0,0,0
+600802,Car Expense - Professional Service,0,0,0,0
+600803,Car Expense - Car Wash,0,0,0,0
+600901,Car Insurance,0,0,0,0
+601001,Misc - Food stores - specialty markets & convenience,0,0,0,0
+601002,Misc - General Merchandise Store,0,0,0,0
+601003,Misc - Discount Store,0,0,0,0
+601004,Misc - Furntiture Store,0,0,0,0
+601005,Misc - Home Supply Store,0,0,0,0
+601006,Misc - Electronic Store,0,0,0,0
+601007,Misc - Pharmacy Store,0,0,0,0
+601008,Misc - Online Store,0,0,0,0
+601009,Misc - Hardware Store ,0,0,0,0
+601010,Misc - Jewelry Store,0,0,0,0
+601011,Misc - Florists Store,0,0,0,0
+601012,Misc - Uber ,0,0,0,0
+601013,Misc - Storage,0,0,0,0
+601014,Misc - Service,0,0,0,0
+601015,Misc - Rental Service,0,0,0,0
+601016,Misc - Parking ,0,0,0,0
+601017,Misc - Amusement/rec services,0,0,0,0
+601018,Misc - Government Services,0,0,0,0
+601019,Misc - Postal Services,0,0,0,0
+700001,Income after Deductions and Taxes,0,0,0,0
+700002,Net Income,0,0,0,0

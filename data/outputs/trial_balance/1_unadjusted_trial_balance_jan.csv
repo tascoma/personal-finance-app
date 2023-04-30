@@ -1,0 +1,32 @@
+GL_Code,Account,Month_Num,Month,DEBIT,CREDIT,Beg_Balance,Movement,End_Balance
+100101,Free Checking Bank OZK,1,jan,3423.63,5738.88,16172.91,-2315.25,13857.66
+100102,Venmo Balance,1,jan,195.23000000000002,0.0,0.0,195.23000000000002,195.23000000000002
+100202,Associate Stock Purchase Plan - Computer Share,1,jan,161.0,0.0,2728.89,161.0,2889.89
+100204,Cryptocurrency,1,jan,40.0,0.0,546.96,40.0,586.96
+100301,Roth IRA - EdwardJones,1,jan,4287.63,0.0,6415.32,4287.63,10702.95
+100304,Health Savings Account Investment,1,jan,100.0,0.0,1634.47,100.0,1734.47
+100305,Walmart Roth 401k - Merrill ,1,jan,549.24,0.0,9871.78,549.24,10421.02
+200101,EdwardJones MasterCard,1,jan,0.0,1934.06,0.0,-1934.06,1934.06
+400101,Regular Earnings - Walmart Salary,1,jan,0.0,5492.32,0.0,-5492.32,5492.32
+400103,Walmart Stock Match,1,jan,0.0,21.0,0.0,-21.0,21.0
+500101,Medical Insurance,1,jan,71.67,0.0,0.0,71.67,71.67
+500102,Dental Insurance,1,jan,16.59,0.0,0.0,16.59,16.59
+500103,Vision Insurance,1,jan,5.51,0.0,0.0,5.51,5.51
+500201,Federal Income Tax,1,jan,574.94,0.0,0.0,574.94,574.94
+500202,Social Security Tax,1,jan,329.81,0.0,0.0,329.81,329.81
+500203,Medicare Tax,1,jan,77.13,0.0,0.0,77.13,77.13
+500204,State Income Tax,1,jan,203.8,0.0,0.0,203.8,203.8
+600101,Rent Expense,1,jan,1187.22,0.0,0.0,1187.22,1187.22
+600201,Gas - AUTOMATED FUEL DISPENSERS,1,jan,132.95,0.0,0.0,132.95,132.95
+600301,Utilities,1,jan,89.86,0.0,0.0,89.86,89.86
+600401,Internet,1,jan,65.95,0.0,0.0,65.95,65.95
+600501,Food - Fast Food Restaurants,1,jan,284.77,0.0,0.0,284.77,284.77
+600502,Food - Restaurants,1,jan,83.53,0.0,0.0,83.53,83.53
+600503,Grocery,1,jan,439.63,0.0,0.0,439.63,439.63
+600601,"Hobbies - hobby, toy or games stores",1,jan,141.59,0.0,0.0,141.59,141.59
+600602,Hobbies - Jiu Jitsu,1,jan,131.7,0.0,0.0,131.7,131.7
+600604,Entertainment - digital goods: games,1,jan,3.24,0.0,0.0,3.24,3.24
+600802,Car Expense - Professional Service,1,jan,207.5,0.0,0.0,207.5,207.5
+601003,Misc - Discount Store,1,jan,159.0,0.0,0.0,159.0,159.0
+601008,Misc - Online Store,1,jan,20.0,0.0,0.0,20.0,20.0
+601018,Misc - Government Services,1,jan,203.14,0.0,0.0,203.14,203.14
