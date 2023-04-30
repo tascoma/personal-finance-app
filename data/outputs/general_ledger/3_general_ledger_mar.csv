@@ -28,11 +28,6 @@ paystub-3-82,2023-03-16,500103.0,Vision Insurance,INS VIS *,2.76,
 paystub-3-83,2023-03-16,400101.0,Regular Earnings - Walmart Salary,REGULAR,,2746.16
 paystub-3-84,2023-03-16,400103.0,Walmart Stock Match,CO STK,,10.5
 paystub-3-85,2023-03-16,400102.0,Bonus,MGMT,,9812.85
-paystub-3-100,2023-03-30,400101.0,Regular Earnings - Walmart Salary,REGULAR,,2746.16
-paystub-3-101,2023-03-30,400103.0,Walmart Stock Match,CO STK,,7.5
-paystub-3-102,2023-03-30,400102.0,Bonus,MGMT,,0.0
-paystub-3-103,2023-03-30,400104.0,Making A Difference Reward,MTD AWARD,,250.0
-paystub-3-104,2023-03-30,,,EQUITY P/O NET,,
 paystub-3-86,2023-03-30,100101.0,Free Checking Bank OZK,Cash from paystub,1841.94,
 paystub-3-87,2023-03-30,100202.0,Associate Stock Purchase Plan - Computer Share,STOCK PURCH,70.0,
 paystub-3-88,2023-03-30,100202.0,Associate Stock Purchase Plan - Computer Share,CO STK CONT,7.5,
@@ -47,3 +42,8 @@ paystub-3-96,2023-03-30,500101.0,Medical Insurance,INS MED U *,36.8,
 paystub-3-97,2023-03-30,500102.0,Dental Insurance,INS DEN U *,8.3,
 paystub-3-98,2023-03-30,500103.0,Vision Insurance,INS VIS *,2.76,
 paystub-3-99,2023-03-30,500104.0,Walton Life Fitness Center,HEALTH CLUB,9.0,
+paystub-3-100,2023-03-30,400101.0,Regular Earnings - Walmart Salary,REGULAR,,2746.16
+paystub-3-101,2023-03-30,400103.0,Walmart Stock Match,CO STK,,7.5
+paystub-3-102,2023-03-30,400102.0,Bonus,MGMT,,0.0
+paystub-3-103,2023-03-30,400104.0,Making A Difference Reward,MTD AWARD,,250.0
+paystub-3-104,2023-03-30,,,EQUITY P/O NET,,

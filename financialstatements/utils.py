@@ -35,14 +35,11 @@ def debit_credit_check(df):
     return debit_total == credit_total
 
 
-def creating_output(df, month_df, type, config, cwd):
+def creating_output(df, type, config, cwd):
     df['Month_Num'] = df['Date'].dt.month
     df['Transaction_ID'] = type + '-' + \
         df['Month_Num'].astype("str") + '-' + (df.index + 1).astype("str")
-    df = pd.merge(df,
-                  month_df,
-                  on='Month_Num',
-                  how='left')
+    df['Month'] = df['Date'].dt.strftime('%b').str.lower()
     months = df['Month'].unique()
     file_path = os.path.join(cwd, config.get(
         "data_outputs_directory", "JOURNAL_ENTRIES"))
