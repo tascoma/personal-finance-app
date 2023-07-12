@@ -2,8 +2,6 @@ import pandas as pd
 import numpy as np
 import tabula
 import os
-import add_package
-import financialstatements
 
 
 def creating_df(paths):

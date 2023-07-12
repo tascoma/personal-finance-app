@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 import os
-import add_package
-import financialstatements
-
 
 def processing_df(df):
     df['Date'] = pd.to_datetime(df['Date'])

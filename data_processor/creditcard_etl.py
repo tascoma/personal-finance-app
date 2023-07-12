@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 import os
-import add_package
-import financialstatements
 
 
 def joining_gl_codes(df, coa_mcc_df):
@@ -20,7 +18,7 @@ def joining_gl_codes(df, coa_mcc_df):
     return df
 
 
-def processing_df(df):
+def creditcard_processing(df):
     df['Date'] = pd.to_datetime(df['Date'])
     df['Description'] = df['MCC_Description'] + ': ' + df['Name']
     df = df[['Date', 'GL_Code', 'Account', 'Description', 'DEBIT', 'CREDIT']]
