@@ -1,3 +1,14 @@
 import streamlit as st
 
-st.title('Personal Finacial Statements')
+
+def main():
+    st.title('Personal Finacial Statements')
+
+if __name__ == "__main__":
+    main()
+
+# TODO:
+# Display pdfs
+# Change to one process data button
+# Implement SQLite into the project
+# Implement logging

@@ -12,10 +12,7 @@ def process_creditcard_statements(selected_files):
     df[['Memo', 'MCC', 'Blank']] = df['Memo'].str.split(';', expand=True)
     df['MCC'] = df['MCC'].str[-4:]
     df['MCC'] = df['MCC'].astype('int')
-    df = pd.merge(df,
-                  coa_mcc_df,
-                  how='left',
-                  on='MCC')
+    df = pd.merge(df, coa_mcc_df, how='left', on='MCC')
     df['Date'] = pd.to_datetime(df['Date'])
     df['Description'] = df['MCC_Description'] + ': ' + df['Name']
     df = df[['Date', 'GL_Code', 'Account', 'Description', 'DEBIT', 'CREDIT']]

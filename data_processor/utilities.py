@@ -9,6 +9,7 @@ def create_df(selected_files):
         dfs.append(df)
     return pd.concat(dfs).reset_index(drop=True)
 
+
 def creating_credit_entries(df, gl_code, account_name):
     df = df[df['CREDIT'].isnull()].reset_index(drop=True).copy()
     df['GL_Code'] = gl_code
@@ -16,6 +17,7 @@ def creating_credit_entries(df, gl_code, account_name):
     df['Sub_Order_Col'] = 2
     df = df.rename(columns={'DEBIT': 'CREDIT', 'CREDIT': 'DEBIT'})
     return df[['Date', 'GL_Code', 'Account', 'Description', 'DEBIT', 'CREDIT', 'Order_Col', 'Sub_Order_Col']]
+
 
 def creating_debit_entries(df, gl_code, account_name):
     df = df[df['DEBIT'].isnull()].reset_index(drop=True).copy()
@@ -25,11 +27,13 @@ def creating_debit_entries(df, gl_code, account_name):
     df = df.rename(columns={'DEBIT': 'CREDIT', 'CREDIT': 'DEBIT'})
     return df[['Date', 'GL_Code', 'Account', 'Description', 'DEBIT', 'CREDIT', 'Order_Col', 'Sub_Order_Col']]
 
+
 def move_files_to_processed(selected_files):
     for file in selected_files:
         source_path = os.path.join("uploads", file)
         destination_path = os.path.join("processed", file)
         os.rename(source_path, destination_path)    
+
 
 def missing_gl_check(df):
     null_count = df['GL_Code'].isnull().sum()
