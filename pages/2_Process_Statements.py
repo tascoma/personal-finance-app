@@ -1,12 +1,17 @@
 import streamlit as st
 import pandas as pd
-import data_processor
+import statement_processor
+import sqlite3
 import os
+import shutil
 
 st.title("Process Statements")
 
 uploaded_files = os.listdir("uploads")
-processed_files = os.listdir("processed")
+processed_files = []
+dfs = []
+
+connection = sqlite3.connect('personal-finance.db')
 
 # Display the files in "uploads" and "processed"
 st.subheader("Uploaded Files")
@@ -16,37 +21,41 @@ if uploaded_files:
 else:
     st.write("No files in uploads folder")
 
+if st.button("Process Statements"):
+    os.makedirs("processed", exist_ok=True)
+    for file in uploaded_files:
+        file_extension = os.path.splitext(file)[-1]
+        if (file_extension == ".csv" or file_extension == '.xlsx') and 'creditcard' in file.lower():
+            df = pd.read_csv(os.path.join('uploads', file))
+            processed_df = statement_processor.process_creditcard_statements(df, connection)
+       
+        elif (file_extension == ".csv" or file_extension == '.xlsx') and 'bank' in file.lower():
+            df = pd.read_csv(os.path.join('uploads', file))
+            processed_df = statement_processor.process_bank_statements(df)
+
+        elif file_extension == ".pdf":
+            print("Processing paystub")
+        
+        else:
+            continue
+        
+        dfs.append(processed_df)
+        upload_file_path = os.path.join("uploads", file)
+        processed_file_path = os.path.join("processed", file)
+        shutil.move(upload_file_path, processed_file_path)
+
+        processed_files.append(file)
+    
+    journal_entries_df = pd.concat(dfs).reset_index(drop=True)
+    st.subheader("Preview of the Journal Entries")
+    st.dataframe(journal_entries_df)
+    # df.to_sql("general_ledger", connection, if_exists="append", index=False)
+    connection.close()
+
+# Display the processed file names
 st.subheader("Processed Files")
 if processed_files:
     for file in processed_files:
         st.write(file)
 else:
-    st.write("No files in processed folder")
-
-# Create the "processed" folder if it doesn't exist
-os.makedirs("processed", exist_ok=True)
-
-# Display a preview of all files in the "uploads" folder
-uploaded_files = os.listdir("uploads")
-
-if uploaded_files:
-    st.subheader("Uploaded Files")
-    selected_files = st.multiselect("Select files to process", uploaded_files)
-
-    if st.button("Process Bank Statement(s)"):
-        df = data_processor.process_bank_statements(selected_files)
-        st.dataframe(df)
-        data_processor.move_files_to_processed(selected_files=selected_files)
-        
-    if st.button("Process Credit Card Statement(s)"):
-        df = data_processor.process_creditcard_statements(selected_files)
-        st.dataframe(df)
-        data_processor.move_files_to_processed(selected_files=selected_files)
-
-    if st.button("Process Paystub(s)"):
-        df = data_processor.process_paystubs(selected_files)
-        st.dataframe(df)
-        data_processor.move_files_to_processed(selected_files=selected_files)
-
-else:
-    st.subheader("Please upload files to process")
+    st.write("No files have been processed yet")
