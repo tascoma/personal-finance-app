@@ -22,6 +22,14 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS mcc_list (
     FOREIGN KEY (gl_code) REFERENCES chart_of_accounts(gl_code)
 )''')
 
+# Create the paystub_list table
+cursor.execute('''CREATE TABLE IF NOT EXISTS paystub_list (
+    item_id INTEGER PRIMARY KEY,
+    item TEXT,
+    gl_code INTEGER,
+    FOREIGN KEY (gl_code) REFERENCES chart_of_accounts(gl_code)
+)''')
+
 # Create general_ledger table
 cursor.execute('''CREATE TABLE IF NOT EXISTS general_ledger (
     transaction_id TEXT PRIMARY KEY,

@@ -7,8 +7,9 @@ import shutil
 
 st.title("Process Statements")
 
+os.makedirs("processed", exist_ok=True)
 uploaded_files = os.listdir("uploads")
-processed_files = []
+processed_files = os.listdir("processed")
 dfs = []
 
 connection = sqlite3.connect('personal-finance.db')
@@ -34,7 +35,8 @@ if st.button("Process Statements"):
             processed_df = statement_processor.process_bank_statements(df)
 
         elif file_extension == ".pdf":
-            print("Processing paystub")
+            pdf = os.path.join('uploads', file)
+            processed_df = statement_processor.process_paystub(pdf, connection)
         
         else:
             continue
@@ -43,12 +45,18 @@ if st.button("Process Statements"):
         upload_file_path = os.path.join("uploads", file)
         processed_file_path = os.path.join("processed", file)
         shutil.move(upload_file_path, processed_file_path)
-
-        processed_files.append(file)
     
     journal_entries_df = pd.concat(dfs).reset_index(drop=True)
+    journal_entries_df['transaction_date'] = journal_entries_df['transaction_date'].dt.date
+    journal_entries_df = journal_entries_df.sort_values(by=['transaction_date', 'transaction_id'], ascending=True).reset_index(drop=True)
+
     st.subheader("Preview of the Journal Entries")
     st.dataframe(journal_entries_df)
+
+    missing_gl_code_df = statement_processor.missing_gl_code(journal_entries_df)
+    st.subheader("Journal Entries missing GL Codes")
+    st.dataframe(missing_gl_code_df)
+
     # df.to_sql("general_ledger", connection, if_exists="append", index=False)
     connection.close()
 

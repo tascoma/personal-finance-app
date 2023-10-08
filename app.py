@@ -6,8 +6,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# TODO:
-
-# Implement logging
-# Fix statement processer

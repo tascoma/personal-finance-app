@@ -3,7 +3,7 @@ import numpy as np
 from .utilities import *
 
 
-def creating_credit_entries(df, gl_code, account_name):
+def creating_credit_entries(df:DataFrame, gl_code, account_name) -> DataFrame:
     df = df[df['Transaction'] == 'DEBIT'].reset_index(drop=True).copy()
     df['gl_code'] = gl_code
     df['account'] = account_name
@@ -11,7 +11,7 @@ def creating_credit_entries(df, gl_code, account_name):
     return df[['transaction_date', 'gl_code', 'account', 'description', 'amount', 'Transaction', 'order_col', 'sub_order_col']]
 
 
-def creating_debit_entries(df, gl_code, account_name):
+def creating_debit_entries(df:DataFrame, gl_code, account_name) -> DataFrame:
     df = df[df['Transaction'] == 'CREDIT'].reset_index(drop=True).copy()
     df['gl_code'] = gl_code
     df['account'] = account_name
@@ -19,7 +19,7 @@ def creating_debit_entries(df, gl_code, account_name):
     return df[['transaction_date', 'gl_code', 'account', 'description', 'amount', 'Transaction', 'order_col', 'sub_order_col']]
 
 
-def process_creditcard_statements(df, connection):
+def process_creditcard_statements(df:DataFrame, connection) -> DataFrame:
     mcc_list_df = pd.read_sql_query("SELECT * FROM mcc_list", connection)
     chart_of_accounts_df = pd.read_sql("SELECT * FROM chart_of_accounts", connection)
     df['amount'] = df['Amount'] / -1
@@ -38,6 +38,6 @@ def process_creditcard_statements(df, connection):
     debit_entries_df = creating_debit_entries(df,200101,'EdwardJones MasterCard')
     df = pd.concat([df, credit_entries_df, debit_entries_df]).reset_index(drop=True)
     df = df.sort_values(by=['order_col', 'sub_order_col']).reset_index(drop=True)
+    df = df[['transaction_date', 'gl_code', 'account', 'description', 'amount']]
     df = creating_transaction_id(df, 'cc')
-    df = df[['transaction_id', 'transaction_date', 'gl_code', 'account', 'description', 'amount']]
     return df
