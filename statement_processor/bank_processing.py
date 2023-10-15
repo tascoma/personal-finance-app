@@ -4,12 +4,30 @@ from .utilities import *
 
 
 def removing_duplicates(df: DataFrame) -> DataFrame:
+    """
+    Removes duplicate transactions from the DataFrame based on a list of keywords.
+
+    Args:
+        df (DataFrame): The DataFrame containing the bank transactions.
+
+    Returns:
+        DataFrame: The DataFrame with duplicate transactions removed.
+    """
     keywords = ['WAL-MART ASSOCS. PAYROLL', 'CARDMEMBER SERV WEB PYMT']
     mask = df['Description'].str.contains('|'.join(keywords))
     return df[~mask]
 
 
 def fill_in(df: DataFrame) -> DataFrame:
+    """
+    Fills in missing values for the 'gl_code' and 'account' columns based on a list of keywords.
+
+    Args:
+        df (DataFrame): The DataFrame containing the bank transactions.
+
+    Returns:
+        DataFrame: The DataFrame with missing values filled in.
+    """
     keywords_finserv = ['zelle', 'venmo', 'paypall']
     keywords_rent = ['pinnacle']
     keyword_edwardjones = ['edward jones']
@@ -35,6 +53,17 @@ def fill_in(df: DataFrame) -> DataFrame:
 
 
 def creating_credit_entries(df:DataFrame, gl_code, account_name) -> DataFrame:
+    """
+    Creates credit entries for the DataFrame based on a GL code and account name.
+
+    Args:
+        df (DataFrame): The DataFrame containing the bank transactions.
+        gl_code (int): The GL code to use for the credit entries.
+        account_name (str): The account name to use for the credit entries.
+
+    Returns:
+        DataFrame: The DataFrame with credit entries added.
+    """
     df = df[df['transaction'] == 'DEBIT'].reset_index(drop=True).copy()
     df['amount'] = df['amount'] / -1
     df['gl_code'] = gl_code
@@ -44,6 +73,17 @@ def creating_credit_entries(df:DataFrame, gl_code, account_name) -> DataFrame:
 
 
 def creating_debit_entries(df:DataFrame, gl_code, account_name) -> DataFrame:
+    """
+    Creates debit entries for the DataFrame based on a GL code and account name.
+
+    Args:
+        df (DataFrame): The DataFrame containing the bank transactions.
+        gl_code (int): The GL code to use for the debit entries.
+        account_name (str): The account name to use for the debit entries.
+
+    Returns:
+        DataFrame: The DataFrame with debit entries added.
+    """
     df = df[df['transaction'] == 'CREDIT'].reset_index(drop=True).copy()
     df['gl_code'] = gl_code
     df['account'] = account_name
@@ -52,6 +92,15 @@ def creating_debit_entries(df:DataFrame, gl_code, account_name) -> DataFrame:
 
 
 def process_bank_statements(df:DataFrame) -> DataFrame:
+    """
+    Processes bank statements by removing duplicates, filling in missing values, and creating credit and debit entries.
+
+    Args:
+        df (DataFrame): The DataFrame containing the bank transactions.
+
+    Returns:
+        DataFrame: The processed DataFrame with transaction IDs added.
+    """
     df['amount'] = df['Amount'].str.replace('$', '')
     df['amount'] = df['amount'].str.replace(',', '')
     df['amount'] = df['amount'].astype('float')
