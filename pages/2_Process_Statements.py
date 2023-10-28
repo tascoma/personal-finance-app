@@ -55,22 +55,24 @@ def process_statements(uploaded_files:list, _connection) -> DataFrame:
     return journal_entries_df
 
 
-# Set up the Streamlit app
+# Set up the Streamlit page
 st.title("Process Statements")
 os.makedirs("processed", exist_ok=True)
 uploaded_files = os.listdir("uploads")
 processed_files = os.listdir("processed")
-connection = sqlite3.connect('personal-finance.db')
 st.write("Number of Files to Process:", len(uploaded_files))
 
 # Process statements when the button is clicked
 if st.button("Process Statements"):
+    connection = sqlite3.connect('personal-finance.db')
     journal_entries_df = process_statements(uploaded_files, connection)
     missing_gl_code_df = statement_processor.missing_gl_code(journal_entries_df)
     st.subheader("Preview of the Journal Entries")
-    st.dataframe(journal_entries_df)
+    st.dataframe(journal_entries_df, width=2500)
     st.subheader("Journal Entries missing GL Codes")
-    st.dataframe(missing_gl_code_df)
+    st.dataframe(missing_gl_code_df, width=2500)
     journal_entries_df.to_sql('general_ledger', connection, if_exists='append', index=False)
     st.write("Number of Journal Entries added to the database:", len(journal_entries_df))
     st.write("Number of Files Processed:", len(processed_files))
+    connection.commit()
+    connection.close()
