@@ -17,10 +17,25 @@ def creating_transaction_id(df: DataFrame, statement) -> DataFrame:
     df['month_num'] = df['transaction_date'].dt.month
     df['day_num'] = df['transaction_date'].dt.day
     df['transaction_id'] = statement + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
-    return df[['transaction_id', 'transaction_date', 'gl_code', 'account', 'description', 'amount']]
+    return df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
 
 
-def missing_gl_code(df: DataFrame) -> DataFrame:
+def posting_to_gl(df: DataFrame, connection, table_name: str) -> None:
+    """
+    This function posts the input DataFrame to the input SQLite table.
+    
+    Args:
+    - df: DataFrame - input DataFrame containing transaction data
+    - connection: Connection - SQLite database connection
+    - table_name: str - SQLite table name
+    
+    Returns:
+    - None
+    """
+    df.to_sql(table_name, connection, if_exists='append', index=False)
+
+
+def missing_account_code(df: DataFrame) -> DataFrame:
     """
     This function filters the input DataFrame to only include transactions with missing GL codes.
     
@@ -30,5 +45,6 @@ def missing_gl_code(df: DataFrame) -> DataFrame:
     Returns:
     - DataFrame - output DataFrame containing transactions with missing GL codes
     """
-    df = df[df['gl_code'].isna()]
+    df = df[df['account_code'].isna()]
     return df
+

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from pandas import DataFrame
 import tabula
 from .utilities import *
@@ -32,19 +33,21 @@ def cash_entry(df: DataFrame) -> DataFrame:
     """
     This function takes a DataFrame as input and returns a new DataFrame containing cash entry data.
     """
-    total_income = df[df['category'] == 'Income']['amount'].sum()
-    total_expense = df[df['category'] != 'Income']['amount'].sum()
+    total_income = df[df['account_subtype'] == 'Income']['amount'].sum()
+    total_expense = df[df['account_subtype'] != 'Income']['amount'].sum()
     total_cash = total_income - total_expense
     total_cash = round(total_cash, 2)
     date = df['transaction_date'].unique()
     cash_entry_df = pd.DataFrame({
         'transaction_date': date,
-        'gl_code': [100101],
+        'account_code': [100101],
         'account': ['Free Checking Bank OZK'],
         'description': ['cash entry'],
+        'type': ['DEBIT'],
         'amount': [total_cash]
+        
     })
-    df = df[['transaction_date', 'gl_code', 'account', 'description', 'amount']]
+    df = df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     result_df = pd.concat([df, cash_entry_df], ignore_index=True)
     return result_df
 
@@ -64,11 +67,12 @@ def process_paystub(pdf, connection):
     df = pd.concat([earnings_df, deductions_df]).reset_index(drop=True)
     df['description'] = df['item']
     df = pd.merge(df, paystub_list_df, how='left', on='item')
-    df = pd.merge(df, chart_of_accounts_df, how='left', on='gl_code')
-    df = df[['transaction_date', 'gl_code', 'account', 'description', 'category', 'amount']]
+    df = pd.merge(df, chart_of_accounts_df, how='left', on='account_code')
+    df = df[['transaction_date', 'account_code', 'account', 'description', 'amount', 'account_subtype']]
     df['amount'] = df['amount'].str.replace('$', '')
     df['amount'] = df['amount'].str.replace(',', '')
     df['amount'] = df['amount'].astype(float)
+    df['type'] = np.where(df['account_subtype'] == 'Income', 'CREDIT', 'DEBIT')
     df = cash_entry(df)
     df = creating_transaction_id(df, 'ps')
     return df
