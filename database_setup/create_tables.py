@@ -2,6 +2,7 @@ import sqlite3
 import os
 
 # Connect to the database
+os.makedirs("data", exist_ok=True)
 connection = sqlite3.connect(os.path.join("data","personal-finance.db"))
 cursor = connection.cursor()
 

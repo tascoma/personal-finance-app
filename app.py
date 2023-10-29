@@ -6,14 +6,14 @@ import os
 def main():
     # pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
-    df1 = pd.read_csv(r"C:\Users\tasco\OneDrive\Desktop\Test\01_creditcard_jan.csv")
-    df2 = pd.read_csv(r"C:\Users\tasco\OneDrive\Desktop\Test\02_creditcard_feb.csv")
+    df1 = pd.read_csv(r"C:\Users\Tony\OneDrive\Desktop\Test\01_creditcard_jan.csv")
+    df2 = pd.read_csv(r"C:\Users\Tony\OneDrive\Desktop\Test\02_creditcard_feb.csv")
 
-    df3 = pd.read_csv(r"C:\Users\tasco\OneDrive\Desktop\Test\01_bank_jan.csv")
-    df4 = pd.read_csv(r"C:\Users\tasco\OneDrive\Desktop\Test\02_bank_feb.csv")
+    df3 = pd.read_csv(r"C:\Users\Tony\OneDrive\Desktop\Test\01_bank_jan.csv")
+    df4 = pd.read_csv(r"C:\Users\Tony\OneDrive\Desktop\Test\02_bank_feb.csv")
 
-    pdf1 = r"C:\Users\tasco\OneDrive\Desktop\Test\paystub_2023-01-05.pdf"
-    pdf2 = r"C:\Users\tasco\OneDrive\Desktop\Test\paystub_2023-01-19.pdf"
+    pdf1 = r"C:\Users\Tony\OneDrive\Desktop\Test\paystub_2023-01-05.pdf"
+    pdf2 = r"C:\Users\Tony\OneDrive\Desktop\Test\paystub_2023-01-19.pdf"
     connection = sqlite3.connect(os.path.join("data","personal-finance.db"))
 
     credit_card_df = pd.concat([df1, df2]).reset_index(drop=True)
