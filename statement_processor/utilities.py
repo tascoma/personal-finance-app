@@ -50,4 +50,3 @@ def posting_to_gl(df: pd.DataFrame, connection: sqlite3.Connection, table_name: 
     """
     df.to_sql(table_name, connection, if_exists='append', index=False)
     connection.commit()
-    connection.close()
