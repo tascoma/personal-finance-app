@@ -79,6 +79,6 @@ def process_creditcard_statement(df: pd.DataFrame, connection: sqlite3.Connectio
     df['transaction_date'] = pd.to_datetime(df['transaction_date'])
     df['month_num'] = df['transaction_date'].dt.month
     df['day_num'] = df['transaction_date'].dt.day
-    df['transaction_id'] = 'ps' + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
+    df['transaction_id'] = 'cc' + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
     df = df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     return df
