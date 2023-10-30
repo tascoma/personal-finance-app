@@ -122,9 +122,7 @@ def process_bank_statement(df: pd.DataFrame) -> pd.DataFrame:
     df = pd.concat([df, credit_entries_df, debit_entries_df]).reset_index(drop=True)
     df = df.sort_values(by=['order_col', 'sub_order_col']).reset_index(drop=True)
     df = df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
-    df['transaction_date'] = pd.to_datetime(df['transaction_date'])
-    df['month_num'] = df['transaction_date'].dt.month
-    df['day_num'] = df['transaction_date'].dt.day
-    df['transaction_id'] = 'bank' + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
+    df['transaction_date'] = pd.to_datetime(df['transaction_date']).dt.strftime('%Y-%m-%d')
+    df['transaction_id'] = 'bank' + '-' + df['transaction_date'].astype("str") + '-' + (df.index + 1).astype("str")
     df =  df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     return df

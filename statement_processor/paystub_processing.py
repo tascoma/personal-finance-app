@@ -73,9 +73,7 @@ def process_paystub(pdf, connection: sqlite3.Connection):
     df['type'] = np.where(df['account_subtype'] == 'Income', 'CREDIT', 'DEBIT')
 
     df = cash_entry(df)
-    df['transaction_date'] = pd.to_datetime(df['transaction_date'])
-    df['month_num'] = df['transaction_date'].dt.month
-    df['day_num'] = df['transaction_date'].dt.day
-    df['transaction_id'] = 'cc' + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
-    df = df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
+    df['transaction_date'] = pd.to_datetime(df['transaction_date']).dt.strftime('%Y-%m-%d')
+    df['transaction_id'] = 'ps' + '-' + df['transaction_date'].astype("str") + '-' + (df.index + 1).astype("str")
+    df =  df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     return df
