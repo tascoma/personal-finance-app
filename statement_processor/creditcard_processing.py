@@ -1,9 +1,9 @@
-import pandas as pd
 import numpy as np
-from .utilities import *
+import pandas as pd
+import sqlite3
 
 
-def creating_credit_entries(df:pd.DataFrame, account_code:int, account_name:str) -> pd.DataFrame:
+def creating_credit_entries(df: pd.DataFrame, account_code: int, account_name: str) -> pd.DataFrame:
     """
     This function creates credit entries for a given DataFrame, GL code, and account name.
     
@@ -23,7 +23,7 @@ def creating_credit_entries(df:pd.DataFrame, account_code:int, account_name:str)
     return df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount', 'order_col', 'sub_order_col']]
 
 
-def creating_debit_entries(df:pd.DataFrame, account_code:int, account_name:str) -> pd.DataFrame:
+def creating_debit_entries(df: pd.DataFrame, account_code: int, account_name: str) -> pd.DataFrame:
     """
     This function creates debit entries for a given DataFrame, GL code, and account name.
     
@@ -43,19 +43,20 @@ def creating_debit_entries(df:pd.DataFrame, account_code:int, account_name:str) 
     return df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount', 'order_col', 'sub_order_col']]
 
 
-def process_creditcard_statements(df:pd.DataFrame, connection) -> pd.DataFrame:
+def process_creditcard_statement(df: pd.DataFrame, connection: sqlite3.Connection) -> pd.DataFrame:
     """
     This function processes credit card statements for a given DataFrame and database connection.
     
     Parameters:
     df (pd.DataFrame): The DataFrame containing the credit card statements to process.
-    connection: The database connection to use for querying MCC list and chart of accounts.
+    connection (sqlite3.Connection): The database connection to use for querying MCC list and chart of accounts.
     
     Returns:
     pd.DataFrame: A DataFrame containing the processed credit card statements.
     """
     mcc_list_df = pd.read_sql_query("SELECT * FROM mcc_list", connection)
     chart_of_accounts_df = pd.read_sql("SELECT * FROM chart_of_accounts", connection)
+    
     df['amount'] = df['Amount'] / -1
     df[['Memo', 'MCC', 'Blank']] = df['Memo'].str.split(';', expand=True)
     df['MCC'] = df['MCC'].str[-4:]
@@ -69,10 +70,15 @@ def process_creditcard_statements(df:pd.DataFrame, connection) -> pd.DataFrame:
     df = df.sort_values(by='transaction_date').reset_index(drop=True)
     df['order_col'] = df.index + 1
     df['sub_order_col'] = np.where(df['type'] == 'DEBIT', 1, 2)
-    credit_entries_df = creating_credit_entries(df,200101,'EdwardJones MasterCard')
-    debit_entries_df = creating_debit_entries(df,200101,'EdwardJones MasterCard')
+    
+    credit_entries_df = creating_credit_entries(df, 200101, 'EdwardJones MasterCard')
+    debit_entries_df = creating_debit_entries(df, 200101, 'EdwardJones MasterCard')
     df = pd.concat([df, credit_entries_df, debit_entries_df]).reset_index(drop=True)
     df = df.sort_values(by=['order_col', 'sub_order_col']).reset_index(drop=True)
     df = df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
-    df = creating_transaction_id(df, 'cc')
+    df['transaction_date'] = pd.to_datetime(df['transaction_date'])
+    df['month_num'] = df['transaction_date'].dt.month
+    df['day_num'] = df['transaction_date'].dt.day
+    df['transaction_id'] = 'ps' + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
+    df = df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     return df

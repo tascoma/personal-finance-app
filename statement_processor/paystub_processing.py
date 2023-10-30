@@ -1,11 +1,10 @@
-import pandas as pd
 import numpy as np
-from pandas import DataFrame
+import pandas as pd
+import sqlite3
 import tabula
-from .utilities import *
 
 
-def find_earnings(df: DataFrame) -> DataFrame:
+def find_earnings(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function takes a DataFrame as input and returns a new DataFrame containing earnings data.
     """
@@ -17,7 +16,7 @@ def find_earnings(df: DataFrame) -> DataFrame:
     return df
 
 
-def find_deductions(df: DataFrame) -> DataFrame:
+def find_deductions(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function takes a DataFrame as input and returns a new DataFrame containing deductions data.
     """
@@ -29,7 +28,7 @@ def find_deductions(df: DataFrame) -> DataFrame:
     return df
 
 
-def cash_entry(df: DataFrame) -> DataFrame:
+def cash_entry(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function takes a DataFrame as input and returns a new DataFrame containing cash entry data.
     """
@@ -45,19 +44,18 @@ def cash_entry(df: DataFrame) -> DataFrame:
         'description': ['cash entry'],
         'type': ['DEBIT'],
         'amount': [total_cash]
-        
     })
     df = df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     result_df = pd.concat([df, cash_entry_df], ignore_index=True)
     return result_df
 
 
-def process_paystub(pdf, connection):
+def process_paystub(pdf, connection: sqlite3.Connection):
     """
     This function takes a PDF file and a database connection as input and returns a DataFrame containing processed paystub data.
     """
     paystub_list_df = pd.read_sql_query("SELECT * FROM paystub_list", connection)
-    chart_of_accounts_df = pd.read_sql("SELECT * FROM chart_of_accounts", connection)   
+    chart_of_accounts_df = pd.read_sql("SELECT * FROM chart_of_accounts", connection)
     df = tabula.read_pdf(pdf, pages='all', area=[396, 36, 756, 612], guess=False)
     df = pd.concat(df).reset_index(drop=True)
     df['transaction_date'] = pdf[-14:-4]
@@ -73,6 +71,11 @@ def process_paystub(pdf, connection):
     df['amount'] = df['amount'].str.replace(',', '')
     df['amount'] = df['amount'].astype(float)
     df['type'] = np.where(df['account_subtype'] == 'Income', 'CREDIT', 'DEBIT')
+
     df = cash_entry(df)
-    df = creating_transaction_id(df, 'ps')
+    df['transaction_date'] = pd.to_datetime(df['transaction_date'])
+    df['month_num'] = df['transaction_date'].dt.month
+    df['day_num'] = df['transaction_date'].dt.day
+    df['transaction_id'] = 'cc' + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
+    df = df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     return df

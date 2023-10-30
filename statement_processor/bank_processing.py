@@ -1,9 +1,8 @@
 import pandas as pd
 import numpy as np
-from .utilities import *
 
 
-def removing_duplicates(df: DataFrame) -> DataFrame:
+def removing_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     """
     Removes duplicate transactions from the DataFrame based on a list of keywords.
 
@@ -18,7 +17,7 @@ def removing_duplicates(df: DataFrame) -> DataFrame:
     return df[~mask]
 
 
-def fill_in(df: DataFrame) -> DataFrame:
+def fill_in(df: pd.DataFrame) -> pd.DataFrame:
     """
     Fills in missing values for the 'account_code' and 'account' columns based on a list of keywords.
 
@@ -52,7 +51,7 @@ def fill_in(df: DataFrame) -> DataFrame:
     return df
 
 
-def creating_credit_entries(df:DataFrame, account_code, account_name) -> DataFrame:
+def creating_credit_entries(df: pd.DataFrame, account_code: int, account_name: str) -> pd.DataFrame:
     """
     Creates credit entries for the DataFrame based on a GL code and account name.
 
@@ -73,7 +72,7 @@ def creating_credit_entries(df:DataFrame, account_code, account_name) -> DataFra
     return df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount', 'order_col', 'sub_order_col']]
 
 
-def creating_debit_entries(df:DataFrame, account_code, account_name) -> DataFrame:
+def creating_debit_entries(df: pd.DataFrame, account_code, account_name) -> pd.DataFrame:
     """
     Creates debit entries for the DataFrame based on a GL code and account name.
 
@@ -93,7 +92,7 @@ def creating_debit_entries(df:DataFrame, account_code, account_name) -> DataFram
     return df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount', 'order_col', 'sub_order_col']]
 
 
-def process_bank_statements(df:DataFrame) -> DataFrame:
+def process_bank_statement(df: pd.DataFrame) -> pd.DataFrame:
     """
     Processes bank statements by removing duplicates, filling in missing values, and creating credit and debit entries.
 
@@ -118,10 +117,14 @@ def process_bank_statements(df:DataFrame) -> DataFrame:
     df['order_col'] = df.index + 1
     df['sub_order_col'] = np.where(df['type'] == 'DEBIT', 1, 2)
     df = fill_in(df)
-    credit_entries_df = creating_credit_entries(df,100101,'Free Checking Bank OZK')
-    debit_entries_df = creating_debit_entries(df,100101,'Free Checking Bank OZK')
+    credit_entries_df = creating_credit_entries(df, 100101, 'Free Checking Bank OZK')
+    debit_entries_df = creating_debit_entries(df, 100101, 'Free Checking Bank OZK')
     df = pd.concat([df, credit_entries_df, debit_entries_df]).reset_index(drop=True)
     df = df.sort_values(by=['order_col', 'sub_order_col']).reset_index(drop=True)
     df = df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
-    df = creating_transaction_id(df, 'bank')
+    df['transaction_date'] = pd.to_datetime(df['transaction_date'])
+    df['month_num'] = df['transaction_date'].dt.month
+    df['day_num'] = df['transaction_date'].dt.day
+    df['transaction_id'] = 'bank' + '-' + df['month_num'].astype("str") + '-' + df['day_num'].astype('str') + '-' + (df.index + 1).astype("str")
+    df =  df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     return df
