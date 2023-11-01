@@ -1,44 +1,45 @@
 import sqlite3
+import os
 
 # Connect to the database
-connection = sqlite3.connect("personal-finance.db")
+os.makedirs("data", exist_ok=True)
+connection = sqlite3.connect(os.path.join("data","personal-finance.db"))
 cursor = connection.cursor()
 
 # Create the chart_of_accounts table
 cursor.execute('''CREATE TABLE IF NOT EXISTS chart_of_accounts (
-    gl_code INTEGER PRIMARY KEY,
+    account_code INTEGER PRIMARY KEY,
     account TEXT,
-    category TEXT,
     account_type TEXT,
-    account_classification TEXT,
-    nature TEXT
+    account_subtype TEXT
 )''')
 
 # Create the mcc_list table
 cursor.execute('''CREATE TABLE IF NOT EXISTS mcc_list (
     mcc INTEGER PRIMARY KEY,
     description TEXT,
-    gl_code INTEGER,
-    FOREIGN KEY (gl_code) REFERENCES chart_of_accounts(gl_code)
+    account_code INTEGER,
+    FOREIGN KEY (account_code) REFERENCES chart_of_accounts(account_code)
 )''')
 
 # Create the paystub_list table
 cursor.execute('''CREATE TABLE IF NOT EXISTS paystub_list (
     item_id INTEGER PRIMARY KEY,
     item TEXT,
-    gl_code INTEGER,
-    FOREIGN KEY (gl_code) REFERENCES chart_of_accounts(gl_code)
+    account_code INTEGER,
+    FOREIGN KEY (account_code) REFERENCES chart_of_accounts(account_code)
 )''')
 
 # Create general_ledger table
 cursor.execute('''CREATE TABLE IF NOT EXISTS general_ledger (
     transaction_id TEXT PRIMARY KEY,
     transaction_date DATE,
-    gl_code INTEGER,
+    account_code INTEGER,
     account TEXT,
     description TEXT,
+    type TEXT,
     amount DECIMAL,
-    FOREIGN KEY (gl_code) REFERENCES chart_of_accounts(gl_code)
+    FOREIGN KEY (account_code) REFERENCES chart_of_accounts(account_code)
 )''')
 
 # Commit the changes and close the connection
