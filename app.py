@@ -4,6 +4,7 @@ import sqlite3
 import os
 import statement_processor
 import database_operations
+import accounting_cycle
 
 # Load logging configuration from logging.ini file
 logging.config.fileConfig('logging.ini')
@@ -31,60 +32,67 @@ def main():
         connection = sqlite3.connect(os.path.join("data","personal-finance.db"))
 
         # Application will loop through all files and process them
-        logger.info("Processing files...")
-        files = [credit_card_jan, credit_card_feb, bank_jan, bank_feb, paystub_jan1, paystub_jan2, paystub_feb1, paystub_feb2]
-        df = statement_processor.parsing_statements(files, connection)
+        # logger.info("Processing files...")
+        # files = [credit_card_jan, credit_card_feb, bank_jan, bank_feb, paystub_jan1, paystub_jan2, paystub_feb1, paystub_feb2]
+        # df = statement_processor.parsing_statements(files, connection)
 
-        # Application will preview data for user to review
-        logger.info("Previewing data...")
-        logger.debug(df)
+        # # Application will preview data for user to review
+        # logger.info("Previewing data...")
+        # logger.debug(df)
 
-        # Application will ask user to confirm data is correct before posting to database
-        logger.info("Posting data to database...")
-        respone = input("Is the data correct? (y/n): ")
-        if respone == "y":
-            statement_processor.posting_to_gl(df, connection, "general_ledger")
-        else:
-            pass
+        # # Application will ask user to confirm data is correct before posting to database
+        # logger.info("Posting data to database...")
+        # respone = input("Is the data correct? (y/n): ")
+        # if respone == "y":
+        #     statement_processor.posting_to_gl(df, connection, "general_ledger")
+        # else:
+        #     pass
 
         # Application will  remove duplicate data
-        logger.info("Removing duplicate data...")
-        num_of_dups, num_of_dups_drop = database_operations.remove_duplicates(connection, "general_ledger")
-        logger.debug(f"Number of duplicate rows before removal: {num_of_dups}")
-        logger.debug(f"Number of duplicate rows after removal: {num_of_dups_drop}")
+        # logger.info("Removing duplicate data...")
+        # num_of_dups, num_of_dups_drop = database_operations.remove_duplicates(connection, "general_ledger")
+        # logger.debug(f"Number of duplicate rows before removal: {num_of_dups}")
+        # logger.debug(f"Number of duplicate rows after removal: {num_of_dups_drop}")
 
         # Application will identify missing data
-        logger.info("Identifying missing data...")
-        missing_data = database_operations.identify_missing_data(connection, "general_ledger")
-        logger.debug(missing_data)
+        # logger.info("Identifying missing data...")
+        # missing_data = database_operations.identify_missing_data(connection, "general_ledger")
+        # logger.debug(missing_data)
 
         # Application will allow user to create data in database
-        logger.info("Creating data in database...")
-        num = input("Enter number of rows to create: ")
-        table = "general_ledger"
-        database_operations.create_row(connection, table, int(num))
+        # logger.info("Creating data in database...")
+        # num = input("Enter number of rows to create: ")
+        # table = "general_ledger"
+        # database_operations.create_row(connection, table, int(num))
 
         # Application will allow user to read data in database
-        logger.info("Reading data in database...")
-        new_row_df = database_operations.read_general_ledger(connection, transaction_id="test-2023-10-30-1")
-        logger.debug(new_row_df)
+        # logger.info("Reading data in database...")
+        # new_row_df = database_operations.read_general_ledger(connection, transaction_id="test-2023-10-30-1")
+        # logger.debug(new_row_df)
 
         # Application will allow user to update data in database
-        logger.info("Updating data in database...")
-        table = "general_ledger"
-        database_operations.update_row(connection, table_name=table, transaction_id="test-2023-10-30-1", column_name="amount", new_value=1000)
-        new_row_df = database_operations.read_general_ledger(connection, transaction_id="test-2023-10-30-1")
-        logger.debug(new_row_df)
+        # logger.info("Updating data in database...")
+        # table = "general_ledger"
+        # transaction_id = input("Enter transaction id: ")
+        # database_operations.update_row(connection, table_name=table, transaction_id=transaction_id, column_name="account_code", new_value=600502)
+        # database_operations.update_row(connection, table_name=table, transaction_id=transaction_id, column_name="account", new_value="Food - Restaurants")
+        # updated_df = database_operations.read_general_ledger(connection, transaction_id=transaction_id)
+        # logger.debug(updated_df)
 
         # Application will allow user to delete data in database
-        logger.info("Deleting data in database...")
-        table = "general_ledger"
-        deleted_row_df = database_operations.delete_row(connection, table, "test-2023-10-30-1")
-        logger.debug(deleted_row_df)
+        # logger.info("Deleting data in database...")
+        # table = "general_ledger"
+        # deleted_row_df = database_operations.delete_row(connection, table, "test-2023-11-01-1")
+        # logger.debug(deleted_row_df)
 
-        # Application will create P/L statement
-        # Application will create balance sheet
-        # Application will create visualizations of the data
+        # Application will create an undajusted trial balance
+        logger.info("Creating unadjusted trial balance...")
+        unadjusted_trial_balance_df = accounting_cycle.create_unadjusted_trial_balance_df(connection, "January")
+        logger.debug(unadjusted_trial_balance_df)
+        accounting_cycle.check_debits_credits_equal(unadjusted_trial_balance_df)
+
+        closing_entries_df = accounting_cycle.create_closing_entries(unadjusted_trial_balance_df)
+        print(closing_entries_df)
 
         connection.close()
     except Exception as e:
