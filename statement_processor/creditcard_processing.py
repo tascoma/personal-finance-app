@@ -7,13 +7,13 @@ def creating_credit_entries(df: pd.DataFrame, account_code: int, account_name: s
     """
     This function creates credit entries for a given DataFrame, GL code, and account name.
     
-    Parameters:
-    df (pd.DataFrame): The DataFrame to create credit entries for.
-    account_code (int): The GL code to assign to the credit entries.
-    account_name (str): The name of the account to assign to the credit entries.
+    Args:
+        df (pd.DataFrame): The DataFrame to create credit entries for.
+        account_code (int): The GL code to assign to the credit entries.
+        account_name (str): The name of the account to assign to the credit entries.
     
     Returns:
-    pd.DataFrame: A DataFrame containing the credit entries.
+        pd.DataFrame: A DataFrame containing the credit entries.
     """
     df = df[df['type'] == 'DEBIT'].reset_index(drop=True).copy()
     df['account_code'] = account_code
@@ -27,13 +27,13 @@ def creating_debit_entries(df: pd.DataFrame, account_code: int, account_name: st
     """
     This function creates debit entries for a given DataFrame, GL code, and account name.
     
-    Parameters:
-    df (pd.DataFrame): The DataFrame to create debit entries for.
-    account_code (int): The GL code to assign to the debit entries.
-    account_name (str): The name of the account to assign to the debit entries.
+    Args:
+        df (pd.DataFrame): The DataFrame to create debit entries for.
+        account_code (int): The GL code to assign to the debit entries.
+        account_name (str): The name of the account to assign to the debit entries.
     
     Returns:
-    pd.DataFrame: A DataFrame containing the debit entries.
+        pd.DataFrame: A DataFrame containing the debit entries.
     """
     df = df[df['type'] == 'CREDIT'].reset_index(drop=True).copy()
     df['account_code'] = account_code
@@ -47,12 +47,12 @@ def process_creditcard_statement(df: pd.DataFrame, connection: sqlite3.Connectio
     """
     This function processes credit card statements for a given DataFrame and database connection.
     
-    Parameters:
-    df (pd.DataFrame): The DataFrame containing the credit card statements to process.
-    connection (sqlite3.Connection): The database connection to use for querying MCC list and chart of accounts.
+    Args:
+        df (pd.DataFrame): The DataFrame containing the credit card statements to process.
+        connection (sqlite3.Connection): The database connection to use for querying MCC list and chart of accounts.
     
     Returns:
-    pd.DataFrame: A DataFrame containing the processed credit card statements.
+        pd.DataFrame: A DataFrame containing the processed credit card statements.
     """
     mcc_list_df = pd.read_sql_query("SELECT * FROM mcc_list", connection)
     chart_of_accounts_df = pd.read_sql("SELECT * FROM chart_of_accounts", connection)

@@ -7,6 +7,12 @@ import tabula
 def find_earnings(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function takes a DataFrame as input and returns a new DataFrame containing earnings data.
+
+    Args:
+        df: DataFrame - input DataFrame containing paystub data
+
+    Returns:
+        pd.DataFrame: A DataFrame containing earnings data.
     """
     df = df[['Unnamed: 0', 'Unnamed: 3', 'transaction_date']]
     df = df.rename(columns={'Unnamed: 0': 'item', 'Unnamed: 3': 'amount'})
@@ -19,6 +25,12 @@ def find_earnings(df: pd.DataFrame) -> pd.DataFrame:
 def find_deductions(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function takes a DataFrame as input and returns a new DataFrame containing deductions data.
+
+    Args:
+        df: DataFrame - input DataFrame containing paystub data
+    
+    Returns:
+        pd.DataFrame: A DataFrame containing deductions data.
     """
     df = df[['Unnamed: 4', 'Unnamed: 5', 'transaction_date']]
     df = df.rename(columns={'Unnamed: 4': 'item', 'Unnamed: 5': 'amount'})
@@ -31,6 +43,12 @@ def find_deductions(df: pd.DataFrame) -> pd.DataFrame:
 def cash_entry(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function takes a DataFrame as input and returns a new DataFrame containing cash entry data.
+
+    Args:
+        df: DataFrame - input DataFrame containing paystub data
+
+    Returns:
+        pd.DataFrame: A DataFrame containing cash entry data.
     """
     total_income = df[df['account_subtype'] == 'Income']['amount'].sum()
     total_expense = df[df['account_subtype'] != 'Income']['amount'].sum()
@@ -50,9 +68,16 @@ def cash_entry(df: pd.DataFrame) -> pd.DataFrame:
     return result_df
 
 
-def process_paystub(pdf, connection: sqlite3.Connection):
+def process_paystub(pdf, connection: sqlite3.Connection) -> pd.DataFrame:
     """
-    This function takes a PDF file and a database connection as input and returns a DataFrame containing processed paystub data.
+    This function processes paystubs for a given PDF and database connection.
+
+    Args:
+        pdf: PDF - PDF containing the paystub to process.
+        connection: Connection - The database connection to use for querying paystub list and chart of accounts.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the processed paystub.
     """
     paystub_list_df = pd.read_sql_query("SELECT * FROM paystub_list", connection)
     chart_of_accounts_df = pd.read_sql("SELECT * FROM chart_of_accounts", connection)

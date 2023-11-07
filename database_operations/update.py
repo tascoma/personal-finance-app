@@ -12,5 +12,5 @@ def update_row(connection: sqlite3.Connection, table_name: str, transaction_id: 
         column_name (str): Name of the column to be updated.
         new_value (str): New value of the column to be updated.
     """
-    connection.execute(f"UPDATE {table_name} SET {column_name} = {new_value} WHERE transaction_id = '{transaction_id}'")
+    connection.execute(f"UPDATE {table_name} SET {column_name} = '{new_value}' WHERE transaction_id = '{transaction_id}'")
     connection.commit()

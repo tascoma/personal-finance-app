@@ -12,6 +12,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS chart_of_accounts (
     account TEXT,
     account_type TEXT,
     account_subtype TEXT
+    account_balance DECIMAL
 )''')
 
 # Create the mcc_list table
@@ -40,6 +41,15 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS general_ledger (
     type TEXT,
     amount DECIMAL,
     FOREIGN KEY (account_code) REFERENCES chart_of_accounts(account_code)
+)''')
+
+# Create account_balance_history table
+cursor.execute('''CREATE TABLE IF NOT EXISTS account_balance_history (
+    balance_id TEXT PRIMARY KEY,
+    balance_date DATE,
+    account_code INTEGER,
+    account TEXT,
+    account_balance DECIMAL
 )''')
 
 # Commit the changes and close the connection
