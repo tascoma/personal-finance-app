@@ -48,6 +48,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS account_balance_history (
     balance_id TEXT PRIMARY KEY,
     balance_date DATE,
     account_code INTEGER,
+    account TEXT,
     account_balance DECIMAL
 )''')
 

@@ -2,14 +2,15 @@ import pandas as pd
 import sqlite3
 
 
-def posting_to_gl(df: pd.DataFrame, connection: sqlite3.Connection, table_name: str) -> None:
+def posting_to_database(df: pd.DataFrame, connection: sqlite3.Connection, table_name: str, if_exists = 'append') -> None:
     """
-    This function posts the input DataFrame to the input SQLite table.
+    Post data to database.
     
     Args:
-        df: DataFrame - input DataFrame containing transaction data
-        connection: Connection - SQLite database connection
-        table_name: str - SQLite table name
+        df (pd.DataFrame): DataFrame
+        connection (sqlite3.Connection): Connection to the database
+        table_name (str): Table name
+        if_exists (str): What to do if the table already exists. Default is 'append'.
     """
-    df.to_sql(table_name, connection, if_exists='append', index=False)
+    df.to_sql(table_name, connection, if_exists=if_exists, index=False)
     connection.commit()
