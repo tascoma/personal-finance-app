@@ -140,3 +140,6 @@ dmypy.json
 
 # Ignore db files
 *.db
+
+# Ignore notebook files
+*.ipynb
