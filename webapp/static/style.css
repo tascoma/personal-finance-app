@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* colors */
+  --primary-color: #222831;
+  --secondary-color: #393E46;
+  --tertiary-color: #00ADB5;
+  --quaternary-color: #EEEEEE;
+
+  /* font sizes */
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 18px;
+  --font-size-xlarge: 20px;
+  --font-size-xxlarge: 24px;
+
+  /* fonts */
+  --font-family: 'Roboto', sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas: 
+    "nav header"
+    "nav main";
+  color: var(--quaternary-color);
+  font-family: var(--font-family);
+}
+
+.header {
+  background-color: var(--primary-color);
+  grid-area: header;
+  border-bottom: 1px solid var(--secondary-color);
+  display: flex;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: var(--font-size-xxlarge);
+  padding: 10px;
+}
+
+.sidebar {
+  height: 100vh;
+  background-color: var(--secondary-color);
+  grid-area: nav;
+  display: grid;
+  grid-template-rows: 60px 1fr 30px;
+  grid-template-areas:
+    "logo"
+    "items"
+    "footer";
+}
+
+.sidebar-logo {
+  font-size: var(--font-size-xxlarge);
+  padding: 10px;
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-items {
+  font-size: var(--font-size-medium);
+  grid-area: items;
+}
+
+.sidebar-items a {
+  text-decoration: none;
+  color: var(--tertiary-color);
+}
+
+.sidebar-footer {
+  font-size: var(--font-size-small);
+  grid-area: footer;
+}
+
+.main {
+  background-color: var(--primary-color);
+  padding: 20px;
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  grid-template-areas:
+    "c1 c2 c3"
+    "c4 c4 c5"
+    "c4 c4 c6";
+}
+
+.card {
+  background-color: var(--primary-color);
+  font-size: var(--font-size-large);
+  padding: 10px;
+}
+
+.card h1 {
+  font-size: var(--font-size-xlarge);
+}
+
+.card:nth-child(1) {
+  grid-area: c1;
+}
+
+.card:nth-child(2) {
+  grid-area: c2;
+}
+
+.card:nth-child(3) {
+  grid-area: c3;
+}
+
+.card:nth-child(4) {
+  grid-area: c4;
+}
+
+.card:nth-child(5) {
+  grid-area: c5;
+}
+
+.card:nth-child(6) {
+  grid-area: c6;
+}
