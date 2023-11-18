@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>{% block title %}{% endblock%}</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="static/style.css">
-	</head>
+  <head>
+    <title>{% block title %}{% endblock%}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/style.css">
+  </head>
   <body>
     <header class="header">
       <h1 class="header-title">My Finances</h1>
@@ -30,8 +30,32 @@
       </div>
     </section>
     <main class="main">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-messages">
+            <ul class="flash-messages-list">
+              {% for category, message in messages %}
+                <li class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}">
+                  {{ message }} 
+                  <button class="remove-message">Remove</button>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endwith %}
       {% block content %}
       {% endblock %}
     </main>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const removeButtons = document.querySelectorAll('.remove-message');
+        removeButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            this.parentNode.remove(); // Remove the entire <li> when the button is clicked
+          });
+        });
+      });
+    </script>
   </body>
 </html>

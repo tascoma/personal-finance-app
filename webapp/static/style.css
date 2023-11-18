@@ -85,8 +85,10 @@ body {
 
 .main {
   background-color: var(--primary-color);
-  padding: 20px;
   grid-area: main;
+}
+
+.home-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -95,6 +97,8 @@ body {
     "c1 c2 c3"
     "c4 c4 c5"
     "c4 c4 c6";
+  padding: 20px;
+  height: 100%;
 }
 
 .card {
@@ -129,4 +133,32 @@ body {
 
 .card:nth-child(6) {
   grid-area: c6;
+}
+
+.flash-messages {
+  margin-top: 0px; /* Adjust the margin as needed */
+}
+
+.flash-message {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px; /* Spacing between messages */
+}
+
+.flash-message.success {
+  background-color: #28a745; /* Success color */
+}
+
+.flash-message.error {
+  background-color: #dc3545; /* Error color */
+}
+
+.remove-message {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
 }
