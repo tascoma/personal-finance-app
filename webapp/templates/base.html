@@ -18,13 +18,17 @@
       </div>
       <div class="sidebar-items">
         <ul>
+          {% if user.is_authenticated %}
           <li><a href="/">Home</a></li>
           <li><a href="/process-statements">Process Statements</a></li>
           <li><a href="/view-statements">View Statements</a></li>
-          <li><a href="view-data">View Data</a></li>
+          <li><a href="/view-data">View Data</a></li>
           <li><a href="/settings">Settings</a></li>
+          <li><a href="/logout">Logout</a></li>
+          {% else %}
           <li><a href="/sign-up">Sign up</a></li>
           <li><a href="/login">Login</a></li>
+          {% endif %}
         </ul>
       </div>
       <div class="sidebar-footer">

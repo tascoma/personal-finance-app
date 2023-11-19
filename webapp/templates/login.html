@@ -4,7 +4,9 @@
 
 {% block content %}
 <div class="auth-container">
-  <h1>Login</h1>
+  <div>
+    <h1>Login</h1>
+  </div>
   <form class="form" method="post">
     <div class="form-group">
       <label for="email">Email address:</label>
@@ -16,5 +18,8 @@
     </div>
     <button type="login" class="btn btn-default">Login</button>
   </form>
+  <div>
+    <p>Don't have an account? <a href="/sign-up">Sign Up</a></p>
+  </div>
 </div>
 {% endblock %}

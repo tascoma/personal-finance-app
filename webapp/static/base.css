@@ -47,8 +47,6 @@ font-size: var(--font-size-xxlarge);
 padding: 10px;
 }
 
-
-
 .main {
 background-color: var(--primary-color);
 grid-area: main;
@@ -82,7 +80,7 @@ grid-area: items;
 
 .sidebar-items a {
 text-decoration: none;
-color: var(--tertiary-color);
+color: var(--quaternary-color);
 }
 
 .sidebar-footer {
