@@ -31,17 +31,3 @@
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-
-.btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  background-color: var(--tertiary-color);
-  color: var(--quaternary-color)
-}
-
-.btn:hover {
-  background-color: var(--secondary-color);
-}

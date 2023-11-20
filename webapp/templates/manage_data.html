@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Data{% endblock %}
+{% block content %}
+<div class="manage-data-container">
+  <div class="manage-data-header">
+    <h1>Manage Data</h1>
+  </div>
+  <form method="post" id="tableForm">
+    <select name="table" id="tableSelect" onchange="handleTableSelection()">
+      <option value="">Select a table</option>
+      {% for table_name in table_names %}
+      <option value="{{ table_name }}">{{ table_name }}</option>
+      {% endfor %}
+    </select>
+  </form>
+  <div class="data-table">
+    <div class="table-controls">
+      <div class="entries-per-page">
+        <label for="entries">Show:</label>
+        <select name="entries" id="entries">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <span>entries</span>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="search" name="search" placeholder="Search...">
+        <button type="button" id="search-btn">Search</button>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          {% for column_name in column_names %}
+          <th>{{ column_name }}</th>
+          {% endfor %}
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          {% for column in row %}
+          <td>{{ column }}</td>
+          {% endfor %}
+          <td>
+            <button type="button" class="edit-btn">Edit</button>
+            <button type="button" class="delete-btn">Delete</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="table-controls">
+      <button type="button" id="create-btn">Create Row</button>
+      <div>
+        <button type="button" id="prev-btn">Previous</button>
+        <button type="button" id="next-btn">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function handleTableSelection() {
+    var selectedTable = document.getElementById("tableSelect").value;
+    if (selectedTable !== '') {
+      console.log("Selected Table: ", selectedTable);
+      document.getElementById("tableForm").submit(); // Submit the form when a table is selected
+    } else {
+      // Handle empty selection
+    }
+  }
+</script>
+{% endblock %}
