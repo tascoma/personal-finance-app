@@ -6,6 +6,16 @@ os.makedirs("data", exist_ok=True)
 connection = sqlite3.connect(os.path.join("data","personal-finance.db"))
 cursor = connection.cursor()
 
+# Create the user table
+cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+    user_id INTEGER PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    password TEXT,
+    permission TEXT
+)''')
+
 # Create the chart_of_accounts table
 cursor.execute('''CREATE TABLE IF NOT EXISTS chart_of_accounts (
     account_code INTEGER PRIMARY KEY,
@@ -40,7 +50,9 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS general_ledger (
     description TEXT,
     type TEXT,
     amount DECIMAL,
+    user_id INTEGER,
     FOREIGN KEY (account_code) REFERENCES chart_of_accounts(account_code)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 )''')
 
 # Create account_balance_history table
@@ -49,7 +61,10 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS account_balance_history (
     balance_date DATE,
     account_code INTEGER,
     account TEXT,
-    account_balance DECIMAL
+    account_balance DECIMAL,
+    user_id INTEGER,
+    FOREIGN KEY (account_code) REFERENCES chart_of_accounts(account_code)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 )''')
 
 # Commit the changes and close the connection

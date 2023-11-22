@@ -25,16 +25,31 @@ def view_statements():
 @login_required
 def manage_data():
     table_names = db.metadata.tables.keys()
+    selected_table = False
+    columns = []
+    rows = []
 
     if request.method == 'POST':
-        table = request.form.get('table')
-        if table and table in table_names:  # Check if the selected table exists
-            df = pd.read_sql_table(table, db.engine)
-            column_names = list(df.columns)
+        table_name = request.form.get('table')
+        selected_table = db.metadata.tables.get(table_name)
+        
+        if selected_table:
+            df = pd.read_sql_table(table_name, db.engine)
+            columns = list(df.columns)
             rows = df.values.tolist()
-            return render_template("manage_data.html", user=current_user, table_names=table_names, column_names=column_names, rows=rows)
+        
+        elif 'add' in request.form:
+            print("Adding data to table")
+            # Logic to add new data to the selected table
+            
+        elif 'edit' in request.form:
+            print("Editing data in table")
+            # Logic to edit data in the selected table
 
-    return render_template("manage_data.html", user=current_user, table_names=table_names)
+        # Handle delete logic similarly
+        
+    return render_template("manage_data.html", user=current_user, table_names=table_names, selected_table=selected_table, columns=columns, rows=rows)
+
 
 
 @views.route('/settings')

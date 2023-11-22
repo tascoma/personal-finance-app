@@ -3,6 +3,40 @@
 {% block title %}Manage Data{% endblock %}
 {% block content %}
 <div class="manage-data-container">
+  <div class="popup-form" id="popup-form-edit">
+    <form class="form" method="post">
+      <div class="form-container">
+        <div><h1>Edit</h1></div>
+        {% for column_name in column_names %}
+        <div class="form-group">
+          <label for="{{ column_name }}">{{ column_name }}:</label>
+          <input type="text" name="{{ column_name }}" class="form-control" id="{{ column_name }}" placeholder="Enter {{ column_name }}">
+        </div>
+        {% endfor %}
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-default" name="edit">Submit</button>
+          <button type="button" class="btn btn-default" onclick="closeFormEdit()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="popup-form" id="popup-form-add">
+    <form class="form" method="post">
+      <div class="form-container">
+        <div><h1>Add</h1></div>
+        {% for column_name in column_names %}
+        <div class="form-group">
+          <label for="{{ column_name }}">{{ column_name }}:</label>
+          <input type="text" name="{{ column_name }}" class="form-control" id="{{ column_name }}" placeholder="Enter {{ column_name }}">
+        </div>
+        {% endfor %}
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-default" name="add">Submit</button>
+          <button type="button" class="btn btn-default" onclick="closeFormAdd()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
   <div class="manage-data-header">
     <h1>Manage Data</h1>
   </div>
@@ -47,15 +81,15 @@
           <td>{{ column }}</td>
           {% endfor %}
           <td>
-            <button type="button" class="edit-btn">Edit</button>
-            <button type="button" class="delete-btn">Delete</button>
+            <button type="button" class="edit-btn" name="edit" onclick="openFormEdit()">Edit</button>
+            <button type="button" class="delete-btn" onclick="deleteRow()">Delete</button>
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
     <div class="table-controls">
-      <button type="button" id="create-btn">Create Row</button>
+      <button type="button" class="add-btn" name="add" onclick="openFormAdd()">Add</button>
       <div>
         <button type="button" id="prev-btn">Previous</button>
         <button type="button" id="next-btn">Next</button>
@@ -64,14 +98,24 @@
   </div>
 </div>
 <script>
+  function openFormEdit() {
+    document.getElementById("popup-form-edit").style.display = "block";
+  }
+
+  function closeFormEdit() {
+    document.getElementById("popup-form-edit").style.display = "none";
+  }
+
+  function openFormAdd() {
+    document.getElementById("popup-form-add").style.display = "block";
+  }
+
+  function closeFormAdd() {
+    document.getElementById("popup-form-add").style.display = "none";
+  }
+
   function handleTableSelection() {
-    var selectedTable = document.getElementById("tableSelect").value;
-    if (selectedTable !== '') {
-      console.log("Selected Table: ", selectedTable);
-      document.getElementById("tableForm").submit(); // Submit the form when a table is selected
-    } else {
-      // Handle empty selection
-    }
+    document.getElementById("tableForm").submit();
   }
 </script>
 {% endblock %}

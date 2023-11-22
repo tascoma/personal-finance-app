@@ -60,7 +60,79 @@
   border-radius: 3px;
 }
 
+.delete-btn {
+  background-color: #dc3545;
+  color: var(--quaternary-color);
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--quaternary-color);
+}
+
+.edit-btn {
+  background-color: var(--tertiary-color);
+  color: var(--quaternary-color);
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--quaternary-color);
+}
+
+.add-btn {
+  background-color: #28a745;
+  color: var(--quaternary-color);
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--quaternary-color);
+}
+
 button {
   font-size: var(--font-size-xsmall);
   padding: 5px 10px;
+}
+
+.popup-form {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  width: 500px;
+}
+
+.open-popup {
+  display: block;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: var(--quaternary-color);
+  padding: 20px;
+  color: black;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
