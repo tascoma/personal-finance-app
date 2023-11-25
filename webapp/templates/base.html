@@ -4,38 +4,81 @@
     <title>{% block title %}{% endblock%}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='manage_data.css') }}"/>
+    <!-- MATERIAL ICONS CDN -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- GOOGLE FONTS (POPPINS) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- STYLE SHEETS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
   </head>
   <body>
-    <header class="header">
-      <h1 class="header-title">My Finances</h1>
-    </header>
-    <section class="sidebar">
-      <div class="sidebar-logo">
+    <header>
+      <div class="header-logo">
         <h1>LOGO</h1>
       </div>
-      <div class="sidebar-items">
-        <ul>
-          {% if user.is_authenticated %}
-          <li><a href="/">Home</a></li>
-          <li><a href="/process-statements">Process Statements</a></li>
-          <li><a href="/view-statements">View Statements</a></li>
-          <li><a href="/manage-data">Manage Data</a></li>
-          <li><a href="/settings">Settings</a></li>
-          <li><a href="/logout">Logout</a></li>
-          {% else %}
-          <li><a href="/sign-up">Sign up</a></li>
-          <li><a href="/login">Login</a></li>
-          {% endif %}
-        </ul>
+      <div class="search-bar">
+        <span class="material-symbols-sharp">search</span>
+        <input type="text" placeholder="Search">
+      </div>
+      <div class="profile-area">
+        <div class="theme-switch">
+          <span class="material-symbols-sharp active">dark_mode</span>
+          <span class="material-symbols-sharp">light_mode</span>
+        </div>
+        <div class="profile">
+          <div class="profile-image">
+            <img src="{{ url_for('static', filename='images/profile-image.png') }}">
+          </div>
+          <h5>Tony Scoma</h5>
+          <span class="material-symbols-sharp">expand_more</span>
+        </div>
+        <button id="menu-btn">
+          <span class="material-symbols-sharp">menu</span>
+        </button>
+      </div>
+    </header>
+    <!-- END OF HEADER -->
+    <section class="sidebar">
+      <div class="sidebar-links">
+        {% if user.is_authenticated %}
+        <a href="/" class="active">
+          <span class="material-symbols-sharp">dashboard</span>
+          <h5>Dashboard</h5>
+        </a>
+        <a href="/process-statements">
+          <span class="material-symbols-sharp">account_tree</span>
+          <h5>Process Statements</h5>
+        </a>
+        <a href="/view-statements">
+          <span class="material-symbols-sharp">description</span>
+          <h5>View Statements</h5>
+        </a>
+        <a href="/manage-data">
+          <span class="material-symbols-sharp">database</span>
+          <h5>Manage Data</h5>
+        </a>
+        <a href="/logout">
+          <span class="material-symbols-sharp">logout</span>
+          <h5>Logout</h5>
+        </a>
+        {% else %}
+        <a href="/sign-up">
+          <span class="material-symbols-sharp">finance</span>
+          <h5>Sign Up</h5>
+        </a>
+        <a href="/login">
+          <span class="material-symbols-sharp">login</span>
+          <h5>Login</h5>
+        </a>
+        {% endif %}
       </div>
       <div class="sidebar-footer">
         <p>© 2023 Scoma Finance</p>
       </div>
     </section>
+    <!-- END OF SIDEBAR -->
     <main class="main">
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
