@@ -61,6 +61,86 @@ img {
   width: 100%;
 }
 
+/* ============== BASE TABLE ============== */
+.data-container {
+  background-color: var(--color-dm-grey);
+  border-radius: var(--card-border-radius);
+  gap: var(--gap-size);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.table-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-size);
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-size);
+}
+
+.table-controls-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entries-per-page {
+  gap: var(--gap-size);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-size);
+  border-radius: var(--card-border-radius);
+}
+
+.table {
+  height: 100%;
+  border-radius: var(--card-border-radius);
+  font-size: var(--font-size-xxsmall);
+  min-width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead tr {
+  background-color: var(--color-primary);
+  text-align: left;
+  font-weight: bold;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--color-white);
+  background-color: var(--color-dm-dark);
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: var(--color-dm-grey);
+}
+
+.table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--color-primary);
+}
+
 /* ============== HEADER ============== */
 header {
   background-color: var(--color-dm-grey);
@@ -247,22 +327,6 @@ section .sidebar-links a.active {
   flex-direction: column;
 }
 
-.preview-container {
-  background-color: var(--color-dm-grey);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-size);
-  border-radius: var(--card-border-radius);
-}
-
-.controls-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-
 /* ================= VIEW STATEMENTS ============== */
 .view-statements-container {
   height: 100%;
@@ -279,75 +343,8 @@ section .sidebar-links a.active {
   flex-direction: column;
 }
 
-.data-table-container {
-  background-color: var(--color-dm-grey);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-size);
-  border-radius: var(--card-border-radius);
-}
-
-.table-controls-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .table-select-form {
   border-radius: var(--card-border-radius);
-}
-
-.entries-per-page {
-  gap: var(--gap-size);
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gap-size);
-  border-radius: var(--card-border-radius);
-}
-
-.table {
-  height: 100%;
-  border-radius: var(--card-border-radius);
-  font-size: var(--font-size-xxsmall);
-  min-width: 100%;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-thead tr {
-  background-color: var(--color-primary);
-  text-align: left;
-  font-weight: bold;
-}
-
-.table th,
-.table td {
-  padding: 12px 16px;
-  white-space: nowrap;
-}
-
-.table tbody tr {
-  border-bottom: 1px solid var(--color-white);
-  background-color: var(--color-dm-dark);
-}
-
-.table tbody tr:nth-of-type(even) {
-  background-color: var(--color-dm-grey);
-}
-
-.table tbody tr:last-of-type {
-  border-bottom: 2px solid var(--color-primary);
 }
 
 .table tbody .action-buttons {
@@ -355,7 +352,6 @@ thead tr {
   justify-content: space-between;
   align-items: center;
   gap: var(--gap-size);
-
 }
 
 .edit-btn {
@@ -416,24 +412,6 @@ button {
 
 .open-popup {
   display: block;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-color: var(--quaternary-color);
-  padding: 20px;
-  color: black;
-}
-
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
 }
 
 /* ============== AUTH ============== */
@@ -497,4 +475,22 @@ button {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 3px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: var(--quaternary-color);
+  padding: 20px;
+  color: black;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
