@@ -5,11 +5,14 @@ from flask_login import LoginManager
 
 db = SQLAlchemy()
 DB_NAME = "personal-finance-app.db"
+UPLOAD_FOLDER = 'webapp/static/uploads'
+ALLOWED_EXTENSIONS = {'csv', 'xlsx', 'pdf'}
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     db.init_app(app)
 
     from .views import views

@@ -3,56 +3,24 @@
 {% block title %}Manage Data{% endblock %}
 {% block content %}
 <div class="manage-data-container">
-  <div class="manage-data-header">
+  <div class="page-title">
     <h1>Manage Data</h1>
   </div>
-  <form method="post" id="tableForm">
-    <select name="table" id="tableSelect" onchange="handleTableSelection()">
-      <option value="">Select a table</option>
-      {% for table_name in table_names %}
-      <option value="{{ table_name }}">{{ table_name }}</option>
-      {% endfor %}
-    </select>
-  </form>
-  <div class="popup-form" id="popup-form-edit">
-    <form class="form" method="post">
-      <div class="form-container">
-        <div><h1>Edit</h1></div>
-        {% for column_name in column_names %}
-        <div class="form-group">
-          <label for="{{ column_name }}">{{ column_name }}:</label>
-          <input type="text" name="{{ column_name }}" class="form-control" id="{{ column_name }}" placeholder="Enter {{ column_name }}">
-        </div>
-        {% endfor %}
-        <div class="form-buttons">
-          <button type="submit" class="btn btn-default" name="edit">Submit</button>
-          <button type="button" class="btn btn-default" onclick="closeFormEdit()">Cancel</button>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="popup-form" id="popup-form-add">
-    <form class="form" method="post">
-      <div class="form-container">
-        <div><h1>Add</h1></div>
-        {% for column_name in column_names %}
-        <div class="form-group">
-          <label for="{{ column_name }}">{{ column_name }}:</label>
-          <input type="text" name="{{ column_name }}" class="form-control" id="{{ column_name }}" placeholder="Enter {{ column_name }}">
-        </div>
-        {% endfor %}
-        <div class="form-buttons">
-          <button type="submit" class="btn btn-default" name="add">Submit</button>
-          <button type="button" class="btn btn-default" onclick="closeFormAdd()">Cancel</button>
-        </div>
-      </div>
-    </form>
-  </div> 
-  <div class="data-table">
+  <div class="data-table-container">
     <div class="table-name">
-      <h2>{{ table_name }}</h2>
+      <h2>{% if table_name == None: %}Select a table{% else: %}{{ table_name }}{% endif %}</h2>
     </div>
-    <div class="table-controls">
+    <div class="table-controls-container">
+      <div class="table-select-form">
+        <form method="post" id="tableForm">
+          <select name="table" id="tableSelect" onchange="handleTableSelection()">
+            <option value="">Select a table</option>
+            {% for table_name in table_names %}
+            <option value="{{ table_name }}">{{ table_name }}</option>
+            {% endfor %}
+          </select>
+        </form>
+      </div>
       <div class="entries-per-page">
         <label for="entries">Show:</label>
         <select name="entries" id="entries">
@@ -64,8 +32,8 @@
         <span>entries</span>
       </div>
       <div class="search-bar">
+        <span class="material-symbols-sharp">search</span>
         <input type="text" id="search" name="search" placeholder="Search...">
-        <button type="button" id="search-btn">Search</button>
       </div>
     </div>
     <div class="table">
@@ -85,21 +53,59 @@
                   <td>{{ value }}</td>
                   {% endfor %}
                   <td>
+                    <div class="action-buttons">
                       <a href="#" class="edit-btn">Edit</a>
                       <a href="#" class="delete-btn">Delete</a>
+                    </div>
                   </td>
               </tr>
               {% endfor %}
           </tbody>
       </table>
-  </div>
-    <div class="table-controls">
+    </div>
+    <div class="table-controls-container">
       <a href="/manage-data/add-data/{{ table_name }}" class="add-btn" onclick="openFormAdd()">Add</a>
       <div>
         <button type="button" id="prev-btn">Previous</button>
         <button type="button" id="next-btn">Next</button>
       </div>
     </div>
+  </div>
+  <div class="popup-form-container">
+    <div class="popup-form" id="popup-form-edit">
+      <form class="form" method="post">
+        <div class="form-container">
+          <div><h1>Edit</h1></div>
+          {% for column_name in column_names %}
+          <div class="form-group">
+            <label for="{{ column_name }}">{{ column_name }}:</label>
+            <input type="text" name="{{ column_name }}" class="form-control" id="{{ column_name }}" placeholder="Enter {{ column_name }}">
+          </div>
+          {% endfor %}
+          <div class="form-buttons">
+            <button type="submit" class="btn btn-default" name="edit">Submit</button>
+            <button type="button" class="btn btn-default" onclick="closeFormEdit()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="popup-form" id="popup-form-add">
+      <form class="form" method="post">
+        <div class="form-container">
+          <div><h1>Add</h1></div>
+          {% for column_name in column_names %}
+          <div class="form-group">
+            <label for="{{ column_name }}">{{ column_name }}:</label>
+            <input type="text" name="{{ column_name }}" class="form-control" id="{{ column_name }}" placeholder="Enter {{ column_name }}">
+          </div>
+          {% endfor %}
+          <div class="form-buttons">
+            <button type="submit" class="btn btn-default" name="add">Submit</button>
+            <button type="button" class="btn btn-default" onclick="closeFormAdd()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div> 
   </div>
 </div>
 <script>

@@ -15,9 +15,6 @@
   </head>
   <body>
     <header>
-      <div class="header-logo">
-        <h1>LOGO</h1>
-      </div>
       <div class="search-bar">
         <span class="material-symbols-sharp">search</span>
         <input type="text" placeholder="Search">
@@ -41,41 +38,46 @@
     </header>
     <!-- END OF HEADER -->
     <section class="sidebar">
-      <div class="sidebar-links">
-        {% if user.is_authenticated %}
-        <a href="/" class="active">
-          <span class="material-symbols-sharp">dashboard</span>
-          <h5>Dashboard</h5>
-        </a>
-        <a href="/process-statements">
-          <span class="material-symbols-sharp">account_tree</span>
-          <h5>Process Statements</h5>
-        </a>
-        <a href="/view-statements">
-          <span class="material-symbols-sharp">description</span>
-          <h5>View Statements</h5>
-        </a>
-        <a href="/manage-data">
-          <span class="material-symbols-sharp">database</span>
-          <h5>Manage Data</h5>
-        </a>
-        <a href="/logout">
-          <span class="material-symbols-sharp">logout</span>
-          <h5>Logout</h5>
-        </a>
-        {% else %}
-        <a href="/sign-up">
-          <span class="material-symbols-sharp">finance</span>
-          <h5>Sign Up</h5>
-        </a>
-        <a href="/login">
-          <span class="material-symbols-sharp">login</span>
-          <h5>Login</h5>
-        </a>
-        {% endif %}
-      </div>
-      <div class="sidebar-footer">
-        <p>© 2023 Scoma Finance</p>
+      <div class="sidebar-container">
+        <div class="sidebar-header">
+          <h1>Scoma Finance</h1>
+        </div>
+        <div class="sidebar-links">
+          {% if user.is_authenticated %}
+          <a href="/" class="active">
+            <span class="material-symbols-sharp">dashboard</span>
+            <h5>Dashboard</h5>
+          </a>
+          <a href="/process-statements">
+            <span class="material-symbols-sharp">account_tree</span>
+            <h5>Process Statements</h5>
+          </a>
+          <a href="/view-statements">
+            <span class="material-symbols-sharp">description</span>
+            <h5>View Statements</h5>
+          </a>
+          <a href="/manage-data">
+            <span class="material-symbols-sharp">database</span>
+            <h5>Manage Data</h5>
+          </a>
+          <a href="/logout">
+            <span class="material-symbols-sharp">logout</span>
+            <h5>Logout</h5>
+          </a>
+          {% else %}
+          <a href="/sign-up">
+            <span class="material-symbols-sharp">finance</span>
+            <h5>Sign Up</h5>
+          </a>
+          <a href="/login">
+            <span class="material-symbols-sharp">login</span>
+            <h5>Login</h5>
+          </a>
+          {% endif %}
+        </div>
+        <div class="sidebar-footer">
+          <p>© 2023 Scoma Finance</p>
+        </div>
       </div>
     </section>
     <!-- END OF SIDEBAR -->
