@@ -15,12 +15,18 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     db.init_app(app)
 
-    from .views import views
-    from .auth import auth
+    from webapp.views.auth import auth
+    from webapp.views.home import home_bp
+    from webapp.views.process_statements import process_statements_bp
+    from webapp.views.view_statements import view_statements_bp
+    from webapp.views.manage_data import manage_data_bp
 
-    app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-
+    app.register_blueprint(home_bp, url_prefix='/')
+    app.register_blueprint(process_statements_bp, url_prefix='/')
+    app.register_blueprint(view_statements_bp, url_prefix='/')
+    app.register_blueprint(manage_data_bp, url_prefix='/')
+    
     from .models import User, ChartOfAccounts, MCCList, PaystubList, GeneralLedger, AccountBalanceHistory
     
     with app.app_context():
