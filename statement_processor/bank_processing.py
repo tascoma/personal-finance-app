@@ -117,11 +117,12 @@ def process_bank_statement(df: pd.DataFrame) -> pd.DataFrame:
     df['order_col'] = df.index + 1
     df['sub_order_col'] = np.where(df['type'] == 'DEBIT', 1, 2)
     df = fill_in(df)
+
     credit_entries_df = creating_credit_entries(df, 100101, 'Free Checking Bank OZK')
     debit_entries_df = creating_debit_entries(df, 100101, 'Free Checking Bank OZK')
     df = pd.concat([df, credit_entries_df, debit_entries_df]).reset_index(drop=True)
+
     df = df.sort_values(by=['order_col', 'sub_order_col']).reset_index(drop=True)
-    df = df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     df['transaction_date'] = pd.to_datetime(df['transaction_date']).dt.strftime('%Y-%m-%d')
     df['transaction_id'] = 'bank' + '-' + df['transaction_date'].astype("str") + '-' + (df.index + 1).astype("str")
     df =  df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]

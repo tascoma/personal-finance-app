@@ -74,8 +74,8 @@ def process_creditcard_statement(df: pd.DataFrame, connection: sqlite3.Connectio
     credit_entries_df = creating_credit_entries(df, 200101, 'EdwardJones MasterCard')
     debit_entries_df = creating_debit_entries(df, 200101, 'EdwardJones MasterCard')
     df = pd.concat([df, credit_entries_df, debit_entries_df]).reset_index(drop=True)
+
     df = df.sort_values(by=['order_col', 'sub_order_col']).reset_index(drop=True)
-    df = df[['transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
     df['transaction_date'] = pd.to_datetime(df['transaction_date']).dt.strftime('%Y-%m-%d')
     df['transaction_id'] = 'cc' + '-' + df['transaction_date'].astype("str") + '-' + (df.index + 1).astype("str")
     df =  df[['transaction_id', 'transaction_date', 'account_code', 'account', 'description', 'type', 'amount']]
