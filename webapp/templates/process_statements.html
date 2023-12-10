@@ -6,128 +6,28 @@
   <div class="page-title">
   <h1>Process Statements</h1>
   </div>
-  <div class="data-container">
-    <div class="table-header">
-      <div class="upload-statements">
-        <form action="" method="POST" enctype="multipart/form-data">
-          <input type="file" name="file" id="file">
-          <input type="submit" value="Upload">
-        </form>
-      </div>
-      <div class="file-name">
-        <h2>{% if filename == None: %}Upload a file{% else: %}{{ filename }}{% endif %}</h2>
-      </div>
-      <div class="file-select-form">
-        <form method="post" id="fileForm">
-          <select name="filename" id="fileSelect" onchange="handleFileSelection()">
-            <option value="">Select a file</option>
-            {% for filename in filenames %}
-            <option value="{{ filename }}">{{ filename }}</option>
-            {% endfor %}
-            </select>
-        </form>
-      </div>
+  <div class="file-handler-container">
+    <div class="upload-statement-container">
+      <form method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+      </form>
     </div>
-    <div class="table-container">
-      <div class="table-controls-container">
-        <div class="entries-per-page">
-          <label for="entries">Show:</label>
-          <select name="entries" id="entries">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-          <span>entries</span>
-        </div>
-        <div class="search-bar">
-          <span class="material-symbols-sharp">search</span>
-          <input type="text" id="search" name="search" placeholder="Search...">
-        </div>
-      </div>
-      <div class="table">
-        <table>
-          <thead>
-            <tr>
-              {% for column_name in column_names %}
-              <th>{{ column_name }}</th>
-              {% endfor %}
-            </tr>
-          </thead>
-          <tbody>
-            {% for row in rows %}
-            <tr>
-              {% for value in row %}
-              <td>{{ value }}</td>
-              {% endfor %}
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <div class="table-controls-container">
-        <div>
-          <button type="button" id="prev-btn">Previous</button>
-          <button type="button" id="next-btn">Next</button>
-        </div>
-      </div>
+    {% if files %}
+    <div class="file-select-container">
+      <form action="/process-statements" method="post">
+        <label for="file-dropdown">Select a File:</label>
+        <select name="file-dropdown">
+          {% for file in files %}
+          <option value="{{ file }}">{{ file }}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Select">
+      </form>
     </div>
+    {% endif %}
   </div>
-  <div class="data-container">
-    <div class="table-header">
-      <div class="container-title">
-        <h2>Process Statement</h2>
-      </div>
-    </div>
-    <div class="table-container">
-      <div class="table-controls-container">
-        <div class="entries-per-page">
-          <label for="entries">Show:</label>
-          <select name="entries" id="entries">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-          <span>entries</span>
-        </div>
-        <div class="search-bar">
-          <span class="material-symbols-sharp">search</span>
-          <input type="text" id="search" name="search" placeholder="Search...">
-        </div>
-      </div>
-      <div class="table">
-        <table>
-          <thead>
-            <tr>
-              {% for column_name in column_names %}
-              <th>{{ column_name }}</th>
-              {% endfor %}
-            </tr>
-          </thead>
-          <tbody>
-            {% for row in rows %}
-            <tr>
-              {% for value in row %}
-              <td>{{ value }}</td>
-              {% endfor %}
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <div class="table-controls-container">
-        <div>
-          <button type="button" id="prev-btn">Previous</button>
-          <button type="button" id="next-btn">Next</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% block preview_table %}
+  {% endblock %}
 </div>
-<script>
-    function handleFileSelection() {
-        document.getElementById("fileForm").submit();
-    }
-</script>
 {% endblock %}

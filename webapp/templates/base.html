@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- STYLE SHEETS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
   </head>
   <body>
     <header>
@@ -48,13 +48,17 @@
             <span class="material-symbols-sharp">dashboard</span>
             <h5>Dashboard</h5>
           </a>
+          <a href="/view-statements">
+            <span class="material-symbols-sharp">description</span>
+            <h5>View Statements</h5>
+          </a>
           <a href="/process-statements">
             <span class="material-symbols-sharp">account_tree</span>
             <h5>Process Statements</h5>
           </a>
-          <a href="/view-statements">
-            <span class="material-symbols-sharp">description</span>
-            <h5>View Statements</h5>
+          <a href="/close-books">
+            <span class="material-symbols-sharp">library_books</span>
+            <h5>Close Books</h5>
           </a>
           <a href="/manage-data">
             <span class="material-symbols-sharp">database</span>
@@ -99,15 +103,8 @@
       {% block content %}
       {% endblock %}
     </main>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const removeButtons = document.querySelectorAll('.remove-message');
-        removeButtons.forEach(button => {
-          button.addEventListener('click', function() {
-            this.parentNode.remove(); // Remove the entire <li> when the button is clicked
-          });
-        });
-      });
-    </script>
+    <!-- END OF MAIN -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/manage_data.js') }}"></script>
   </body>
 </html>

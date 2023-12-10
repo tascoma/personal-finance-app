@@ -94,11 +94,18 @@ img {
 }
 
 .search-bar {
+  background-color: var(--color-dm-dark);
+  margin-left: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px;
   gap: var(--gap-size);
-  border-radius: var(--card-border-radius);
+  border-radius: var(--card-border-radius)
+}
+
+.search-bar input {
+  background: transparent;
 }
 
 .table {
@@ -139,6 +146,18 @@ thead tr {
 
 .table tbody tr:last-of-type {
   border-bottom: 2px solid var(--color-primary);
+}
+
+.table-control-button {
+  font-size: var(--font-size-xsmall);
+  padding: 5px 10px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.table-control-button:hover {
+  background-color: var(--color-dm-dark);
 }
 
 /* ============== HEADER ============== */
@@ -320,7 +339,23 @@ section .sidebar-links a.active {
 }
 
 /* ================= PROCESS STATEMENTS ============== */
+.file-handler-container {
+  background-color: var(--color-dm-grey);
+  border-radius: var(--card-border-radius);
+  gap: var(--gap-size);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
 .process-statements-container {
+  height: 100%;
+  gap: var(--gap-size);
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-container {
   height: 100%;
   gap: var(--gap-size);
   display: flex;

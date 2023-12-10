@@ -1,0 +1,56 @@
+{% extends "manage_data.html" %}
+{% block table %}
+
+<div class="table-container">
+  <div class="table-controls-container">
+    <div class="entries-per-page">
+      <label for="entries">Show:</label>
+      <select name="entries" class="entries">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+      <span>entries</span>
+    </div>
+    <div class="search-bar">
+      <span class="material-symbols-sharp">search</span>
+      <input type="text" class="search" name="search" placeholder="Search...">
+    </div>        
+  </div>
+  <div class="table">
+    <table id="manage-data-table">
+        <thead>
+            <tr>
+                {% for column_name in column_names %}
+                <th>{{ column_name }}</th>
+                {% endfor %}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+                <td>
+                  <div class="action-buttons">
+                    <a href="#" class="edit-btn">Edit</a>
+                    <a href="#" class="delete-btn">Delete</a>
+                  </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+  <div class="table-controls-container">
+    <a href="/manage-data/add-data/{{ table_name }}" class="add-btn" onclick="openFormAdd()">Add</a>
+    <div class="page-buttons">
+      <button type="button" class="prev-btn">Previous</button>
+      <button type="button" class="next-btn">Next</button>
+    </div>        
+  </div>
+</div>
+{% endblock %}
