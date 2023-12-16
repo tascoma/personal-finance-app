@@ -486,46 +486,45 @@ button {
   cursor: pointer;
 }
 
-/* ================= FORM ============== */
-.form {
-  height: 100%;
-  width: 500px;
-  padding: 20px;
-}
+/* ================= MODAL ============== */
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
+.modal-container {
   display: block;
-  margin-bottom: 5px;
-  font-size: var(--font-size-large);
-  
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  z-index: 1;
   height: 100%;
-  background-color: var(--quaternary-color);
-  padding: 20px;
-  color: black;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.form-buttons {
+.modal {
+  background-color: var(--color-dm-grey);
+  border-radius: var(--card-border-radius);
+  padding: 10px;
+  width: 500px;
+  height: 300px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  gap: var(--gap-size);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-size);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--gap-size);
 }
