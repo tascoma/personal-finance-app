@@ -41,11 +41,8 @@
               {% endfor %}
               <td>
                 <div class="action-buttons">
-                  <form action="" method="post">
-                    <input type="hidden" name="row-id" value="{{ row[0] }}">
-                    <input type="submit" class="table-control-button" value="Edit" name="edit-data" >
-                    <input type="submit" class="table-control-button" value="Delete" name="delete-data" >
-                  </form>
+                  <button type="button" class="table-control-button" onclick="">Edit</button>
+                  <button type="button" class="table-control-button" onclick="">Delete</button>
                 </div>
               </td>
             </tr>
@@ -66,7 +63,28 @@
       </div>
     </div>
   </div>
-  {% block form %}
-  {% endblock %}
+</div>
+<div class="js-modal modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Edit Data</h2>
+      <button class="modal-button" onclick="closeModal();">
+        <span class="material-symbols-sharp">close</span>
+      </button>
+    </div>
+    <div class="modal-content">
+      <form action="">
+        {% for column_name in column_names %}
+        <div class="modal-input-container">
+          <label class="modal-label" for="{{ column_name }}">{{ column_name }}</label>
+          <input class="modal-input" type="text" name="{{ column_name }}" placeholder="{{row}}">
+        </div>
+        {% endfor %}
+        <div class="modal-button-container">
+          <button class="modal-button" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}

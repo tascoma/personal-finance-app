@@ -44,36 +44,36 @@
         </div>
         <div class="sidebar-links">
           {% if user.is_authenticated %}
-          <a href="/" class="active">
+          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/">
             <span class="material-symbols-sharp">dashboard</span>
             <h5>Dashboard</h5>
           </a>
-          <a href="/view-statements">
+          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/view-statements">
             <span class="material-symbols-sharp">description</span>
             <h5>View Statements</h5>
           </a>
-          <a href="/process-statements">
+          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/process-statements">
             <span class="material-symbols-sharp">account_tree</span>
             <h5>Process Statements</h5>
           </a>
-          <a href="/close-books">
+          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/close-books">
             <span class="material-symbols-sharp">library_books</span>
             <h5>Close Books</h5>
           </a>
-          <a href="/manage-data">
+          <a class="js-sidebar-link sidebar-link" href="/manage-data">
             <span class="material-symbols-sharp">database</span>
             <h5>Manage Data</h5>
           </a>
-          <a href="/logout">
+          <a class="js-sidebar-link sidebar-link" href="/logout">
             <span class="material-symbols-sharp">logout</span>
             <h5>Logout</h5>
           </a>
           {% else %}
-          <a href="/sign-up">
+          <a class="js-sidebar-link sidebar-link" href="/sign-up">
             <span class="material-symbols-sharp">finance</span>
             <h5>Sign Up</h5>
           </a>
-          <a href="/login">
+          <a class="js-sidebar-link sidebar-link" href="/login">
             <span class="material-symbols-sharp">login</span>
             <h5>Login</h5>
           </a>
@@ -93,7 +93,7 @@
               {% for category, message in messages %}
                 <li class="flash-message {% if category == 'success' %}success{% else %}error{% endif %}">
                   {{ message }} 
-                  <button class="remove-message">Remove</button>
+                  <button class="remove-message" onclick="removeMessage();">Remove</button>
                 </li>
               {% endfor %}
             </ul>
@@ -105,6 +105,6 @@
     </main>
     <!-- END OF MAIN -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/manage_data.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/manage_data.js') }}"></script> -->
   </body>
 </html>

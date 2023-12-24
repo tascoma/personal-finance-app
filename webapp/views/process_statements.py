@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from webapp import db, UPLOAD_FOLDER, ALLOWED_EXTENSIONS
-from webapp.models import GeneralLedger
 import pandas as pd
 import os
 from werkzeug.utils import secure_filename
@@ -131,7 +130,7 @@ def process_statement_data(file_name):
                 return redirect(url_for('process_statements_bp.process_statements'))
             except Exception as e:
                 logger.error(f'Error committing processed statement data to database: {e}', exc_info=True)
-                flash('Error committing processed statement data to database', category='error')
+                flash(f'Error committing processed statement data to database: {e}', category='error')
                 return redirect(url_for('process_statements_bp.process_statements'))
 
     return render_template('processed_statement.html', 

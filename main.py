@@ -13,3 +13,8 @@ except Exception as e:
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# TODO:
+# Complete manage_data.py to edit and delete data
+# Complete the form.html to edit and delete data
+# Complete the close_books.py to close books
