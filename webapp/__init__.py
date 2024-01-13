@@ -17,17 +17,9 @@ def create_app():
 
     from webapp.views.auth import auth
     from webapp.views.home import home_bp
-    from webapp.views.process_statements import process_statements_bp
-    from webapp.views.view_statements import view_statements_bp
-    from webapp.views.manage_data import manage_data_bp
-    from webapp.views.close_books import close_books_bp
 
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(home_bp, url_prefix='/')
-    app.register_blueprint(process_statements_bp, url_prefix='/')
-    app.register_blueprint(view_statements_bp, url_prefix='/')
-    app.register_blueprint(manage_data_bp, url_prefix='/')
-    app.register_blueprint(close_books_bp, url_prefix='/')
     
     from .models import User, ChartOfAccounts, MCCList, PaystubList, GeneralLedger, AccountBalanceHistory
     

@@ -338,6 +338,14 @@ section .sidebar-links a.active {
   grid-area: c6;
 }
 
+/* ================= VIEW STATEMENTS ============== */
+.view-statements-container {
+  height: 100%;
+  gap: var(--gap-size);
+  display: flex;
+  flex-direction: column;
+}
+
 /* ================= PROCESS STATEMENTS ============== */
 .file-handler-container {
   background-color: var(--color-dm-grey);
@@ -362,12 +370,44 @@ section .sidebar-links a.active {
   flex-direction: column;
 }
 
-/* ================= VIEW STATEMENTS ============== */
-.view-statements-container {
+/* ============== CLOSE BOOKS ============== */
+.close-books-container {
   height: 100%;
   gap: var(--gap-size);
   display: flex;
   flex-direction: column;
+}
+
+.month-year-handler-container {
+  background-color: var(--color-dm-grey);
+  border-radius: var(--card-border-radius);
+  gap: var(--gap-size);
+  padding: 10px;
+  font-size: var(--font-size-large);
+}
+
+.month-year-form {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-size);
+}
+
+.month-year-form select {
+  padding: 5px 10px;
+  border-radius: var(--card-border-radius);
+  font-size: var(--font-size-medium);
+  background-color: var(--color-dm-dark);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.month-year-form input {
+  padding: 5px 10px;
+  border-radius: var(--card-border-radius);
+  font-size: var(--font-size-medium);
+  background-color: var(--color-dm-dark);
+  color: var(--color-white);
+  cursor: pointer;
 }
 
 /* ============== MANAGE DATA ============== */
@@ -376,6 +416,15 @@ section .sidebar-links a.active {
   gap: var(--gap-size);
   display: flex;
   flex-direction: column;
+}
+
+.table-handler-container {
+  background-color: var(--color-dm-grey);
+  border-radius: var(--card-border-radius);
+  gap: var(--gap-size);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .table-select-form {
