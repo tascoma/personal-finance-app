@@ -9,5 +9,4 @@ home_bp = Blueprint('home', __name__)
 @home_bp.route('/')
 @login_required
 def home():
-    logger.info('home_bp.home()')
     return render_template("home.html", user=current_user)

@@ -2,35 +2,36 @@
 
 {% block title %}Sign Up{% endblock %}
 {% block content %}
-<div class="auth-container">
-  <div class="page-title">
-    <h1>Sign Up</h1>
-  </div>
-  <form class="form" method="post">
+<div class="main-header">
+  <h1>Sign Up</h1>
+</div>
+<div class="main-content">
+  <form class="form" action="" method="post">
     <div class="form-group">
-      <label for="email">Email address:</label>
-      <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email">
+      <label class="form-label" for="email">Email address</label>
+      <input class="form-input" type="email" name="email" id="email">
     </div>
     <div class="form-group">
-      <label for="first-name">First Name:</label>
-      <input type="text" name="first-name" class="form-control" id="first-name" placeholder="Enter First Name">
+      <label class="form-label" for="first-name">First Name</label>
+      <input class="form-input" type="text" name="first-name" id="first-name">
     </div>
     <div class="form-group">
-      <label for="last-name">Last Name:</label>
-      <input type="text" name="last-name" class="form-control" id="last-name" placeholder="Enter Last Name">
+      <label class="form-label" for="last-name">Last Name</label>
+      <input class="form-input" type="text" name="last-name" id="last-name">
     </div>
     <div class="form-group">
-      <label for="password1">Password:</label>
-      <input type="password" name="password1" class="form-control" id="password1" placeholder="Enter Password">
+      <label class="form-label" for="password1">Password</label>
+      <input class="form-input" type="password" name="password1" id="password1">
     </div>
     <div class="form-group">
-      <label for="password2">Confirm Password:</label>
-      <input type="password" name="password2" class="form-control" id="password2" placeholder="Confirm Password">
+      <label class="form-label" for="password2">Confirm Password</label>
+      <input class="form-input" type="password" name="password2" id="password2">
     </div>
-    <button type="submit" class="btn btn-default">Sign Up</button>
+    <button class="button" type="submit">Sign Up</button>
   </form>
   <div>
     <p>Already have an account? <a href="/login">Login</a></p>
   </div>
 </div>
+
 {% endblock %}

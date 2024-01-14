@@ -4,73 +4,35 @@
     <title>{% block title %}{% endblock%}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth_form.css') }}">
   </head>
   <body>
     <header>
-      <div class="search-bar">
-        <span class="material-symbols-sharp">search</span>
-        <input type="text" placeholder="Search">
-      </div>
-      <div class="profile-area">
-        <div class="theme-switch">
-          <span class="material-symbols-sharp active">dark_mode</span>
-          <span class="material-symbols-sharp">light_mode</span>
-        </div>
-        <div class="profile">
-          <div class="profile-image">
-            <img src="{{ url_for('static', filename='images/profile-image.png') }}">
-          </div>
-          <h5>Tony Scoma</h5>
-          <span class="material-symbols-sharp">expand_more</span>
-        </div>
-        <button id="menu-btn">
-          <span class="material-symbols-sharp">menu</span>
-        </button>
-      </div>
-    </header>
-    <!-- END OF HEADER -->
-    <section class="sidebar">
-      <div class="sidebar-container">
-        <div class="sidebar-header">
-          <h1>Scoma Finance</h1>
-        </div>
-        <div class="sidebar-links">
+      <div class="header-container">
+        <h1 class="header-title">Personal Finance App</h1>
+        <div class="profile-container">
           {% if user.is_authenticated %}
-          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/">
-            <h5>Dashboard</h5>
-          </a>
-          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/view-statements">
-            <h5>View Statements</h5>
-          </a>
-          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/process-statements">
-            <h5>Process Statements</h5>
-          </a>
-          <a class="js-sidebar-link sidebar-link" onclick="toggleActiveLink(this);" href="/close-books">
-            <h5>Close Books</h5>
-          </a>
-          <a class="js-sidebar-link sidebar-link" href="/manage-data">
-            <h5>Manage Data</h5>
-          </a>
-          <a class="js-sidebar-link sidebar-link" href="/logout">
-            <h5>Logout</h5>
-          </a>
-          {% else %}
-          <a class="js-sidebar-link sidebar-link" href="/sign-up">
-            <h5>Sign Up</h5>
-          </a>
-          <a class="js-sidebar-link sidebar-link" href="/login">
-            <h5>Login</h5>
-          </a>
+          <p class="profile-name">{{ user.first_name }}</p>
           {% endif %}
         </div>
-        <div class="sidebar-footer">
-          <p>© 2023 Scoma Finance</p>
-        </div>
       </div>
-    </section>
-    <!-- END OF SIDEBAR -->
-    <main class="main">
+    </header>
+    <nav>
+      <div class="logo-container">
+      </div>
+      <div class="nav-link-container">
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/logout">Logout</a>
+        {% else %}
+        <a class="nav-link" href="/sign-up">Sign Up</a>
+        <a class="nav-link" href="/login">Login</a>
+        {% endif %}
+      </div>
+    </nav>
+    <main>
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           <div class="flash-messages">
@@ -85,11 +47,11 @@
           </div>
         {% endif %}
       {% endwith %}
+      <div class="main-container">
       {% block content %}
       {% endblock %}
+      </div>
     </main>
-    <!-- END OF MAIN -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <!-- <script src="{{ url_for('static', filename='js/manage_data.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/base.js')}}"></script>
   </body>
 </html>
